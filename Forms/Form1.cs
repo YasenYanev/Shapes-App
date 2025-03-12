@@ -7,7 +7,7 @@ namespace Coursework
 {
     public partial class Form1 : Form
     {
-        private MouseHandler mouseHandler;
+        public MouseHandler mouseHandler;
         public List<Shape> shapesList = new List<Shape> { };
         public Shape? selectedShape = null;
         public ShapePropertiesForm shapePropertiesForm;
@@ -35,16 +35,8 @@ namespace Coursework
             selectedShape = shape;
             selectedShape.IsSelected = true;
 
-            panelProperties.Controls.Clear();
 
-            shapePropertiesForm = new ShapePropertiesForm(this, shape);
-            shapePropertiesForm.TopLevel = false;
-            shapePropertiesForm.FormBorderStyle = FormBorderStyle.None;
-            shapePropertiesForm.Dock = DockStyle.Fill;
-            shapePropertiesForm.BackColor = panelProperties.BackColor;
-            panelProperties.Controls.Add(shapePropertiesForm);
-            shapePropertiesForm.Show();
-
+            createPropretiesForm(shape);
             panelCanvas.Refresh();
         }
         private void AddShapeBtn_Click(object sender, EventArgs e)
@@ -56,14 +48,7 @@ namespace Coursework
                 panelCanvas.Refresh();
             }
 
-            panelProperties.Controls.Clear();
-            AddShapeForm addShapeForm = new AddShapeForm(this);
-            addShapeForm.TopLevel = false;
-            addShapeForm.FormBorderStyle = FormBorderStyle.None;
-            addShapeForm.Dock = DockStyle.Fill;
-            addShapeForm.BackColor = panelProperties.BackColor;
-            panelProperties.Controls.Add(addShapeForm);
-            addShapeForm.Show();
+            createAddShapeForm();
         }
 
         private void deleteShapeBtn_Click(object sender, EventArgs e)
@@ -76,7 +61,9 @@ namespace Coursework
 
             panelCanvas.Paint -= selectedShape.OnPaint;
             shapesList.Remove(selectedShape);
+
             selectedShape = null;
+
             panelCanvas.Refresh();
             panelProperties.Controls.Clear();
         }
@@ -84,11 +71,32 @@ namespace Coursework
         private void clearBtn_Click(object sender, EventArgs e)
         {
             for (int i = shapesList.Count - 1; i >= 0; i--)
-            {
                 panelCanvas.Paint -= shapesList[i].OnPaint;
-            }
+
             shapesList.Clear();
             panelCanvas.Refresh();
+        }
+
+        public void createPropretiesForm(Shape shape)
+        {
+            panelProperties.Controls.Clear();
+            shapePropertiesForm = new ShapePropertiesForm(this, shape);
+            shapePropertiesForm.TopLevel = false;
+            shapePropertiesForm.FormBorderStyle = FormBorderStyle.None;
+            shapePropertiesForm.Dock = DockStyle.Fill;
+            shapePropertiesForm.BackColor = panelProperties.BackColor;
+            panelProperties.Controls.Add(shapePropertiesForm);
+            shapePropertiesForm.Show();
+        }
+        public void createAddShapeForm()
+        {
+            AddShapeForm addShapeForm = new AddShapeForm(this);
+            addShapeForm.TopLevel = false;
+            addShapeForm.FormBorderStyle = FormBorderStyle.None;
+            addShapeForm.Dock = DockStyle.Fill;
+            addShapeForm.BackColor = panelProperties.BackColor;
+            panelProperties.Controls.Add(addShapeForm);
+            addShapeForm.Show();
         }
     }
 }

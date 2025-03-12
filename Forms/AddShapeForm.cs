@@ -231,6 +231,8 @@ namespace Coursework.Forms
             {
                 mainform.panelCanvas.Paint += shape.OnPaint;
                 mainform.shapesList.Add(shape);
+
+                mainform.OnTryShapeSelect(shape);
                 mainform.panelCanvas.Refresh();
             }
         }

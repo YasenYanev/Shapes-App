@@ -10,7 +10,7 @@ using Coursework.Shapes;
 
 namespace Coursework.Controls.Events
 {
-    class MouseHandler : IMouseHandler
+    public class MouseHandler : IMouseHandler
     {
         Form1 mainScene;
         private Point lastMousePosition = new Point(0, 0);
