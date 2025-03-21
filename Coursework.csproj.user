@@ -4,6 +4,9 @@
     <Compile Update="Forms\AddShapeForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\EditShapePropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\ShapePropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>

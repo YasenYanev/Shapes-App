@@ -7,7 +7,7 @@ using Coursework.Interfaces;
 
 namespace Coursework.Shapes
 {
-    public class Shape : IShape
+    public abstract class Shape : IShape
     {
         public int X { get; protected set; }
         public int Y { get; protected set; }
@@ -27,26 +27,11 @@ namespace Coursework.Shapes
             BorderColor = borderColor;
         }
 
-        public virtual int CalculateArea()
-        {
-            throw new NotImplementedException();
-        }
-        public virtual int CalculatePerimeter()
-        {
-            throw new NotImplementedException();
-        }
-        public virtual void OnPaint(object sender, PaintEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        public virtual void UpdateLocation(int XOnLastEvent, int YOnLastEvent, int XOnMouseMove, int YOnMouseMove,
-            int canvasXLeft, int canvasXRight, int canvasYTop, int canvasYBottom)
-        {
-            throw new NotImplementedException();
-        }
-        public virtual bool IsMouseInside(int X, int Y)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract int CalculateArea();
+        public abstract int CalculatePerimeter();
+        public abstract void OnPaint(object sender, PaintEventArgs e);
+        public abstract void UpdateLocation(int XOnLastEvent, int YOnLastEvent, int XOnMouseMove, int YOnMouseMove,
+            int canvasXLeft, int canvasXRight, int canvasYTop, int canvasYBottom);
+        public abstract bool IsMouseInside(int X, int Y);
     }
 }

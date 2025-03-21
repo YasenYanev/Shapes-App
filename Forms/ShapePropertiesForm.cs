@@ -20,11 +20,11 @@ namespace Coursework.Forms
         private Label lblPerimeter;
         private Label lblSpecificProperty;
 
-        public ShapePropertiesForm(Form1 mainForm, Shape selectedShape)
+        public ShapePropertiesForm(Form1 mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            this.selectedShape = selectedShape;
+            this.selectedShape = this.mainForm.selectedShape;
             DisplayShapeProperties();
         }
 
@@ -42,7 +42,7 @@ namespace Coursework.Forms
 
         private void DisplayShapeProperties()
         {
-            int verticalOffset = 30; // Minimum y height set to 43
+            int verticalOffset = 30;
             int labelSpacing = 36;
             int centerX = (this.Width - 200) / 2;
 

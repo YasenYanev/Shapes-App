@@ -36,12 +36,12 @@ namespace Coursework
             selectedShape.IsSelected = true;
 
 
-            createPropretiesForm(shape);
+            createPropretiesForm();
             panelCanvas.Refresh();
         }
         private void AddShapeBtn_Click(object sender, EventArgs e)
         {
-            if(selectedShape != null)
+            if (selectedShape != null)
             {
                 selectedShape.IsSelected = false;
                 selectedShape = null;
@@ -49,6 +49,18 @@ namespace Coursework
             }
 
             createAddShapeForm();
+        }
+
+        private void editShapeBtn_Click(object sender, EventArgs e)
+        {
+            if (selectedShape == null)
+            {
+                MessageBox.Show("No shape selected");
+                return;
+            }
+
+            createEditPopretiesForm();
+
         }
 
         private void deleteShapeBtn_Click(object sender, EventArgs e)
@@ -77,10 +89,22 @@ namespace Coursework
             panelCanvas.Refresh();
         }
 
-        public void createPropretiesForm(Shape shape)
+        private void createEditPopretiesForm()
         {
             panelProperties.Controls.Clear();
-            shapePropertiesForm = new ShapePropertiesForm(this, shape);
+            EditShapePropertiesForm editShapePropertiesForm = new EditShapePropertiesForm(this);
+            editShapePropertiesForm.TopLevel = false;
+            editShapePropertiesForm.FormBorderStyle = FormBorderStyle.None;
+            editShapePropertiesForm.Dock = DockStyle.Fill;
+            editShapePropertiesForm.BackColor = panelProperties.BackColor;
+            panelProperties.Controls.Add(editShapePropertiesForm);
+            editShapePropertiesForm.Show();
+        }
+
+        private void createPropretiesForm()
+        {
+            panelProperties.Controls.Clear();
+            shapePropertiesForm = new ShapePropertiesForm(this);
             shapePropertiesForm.TopLevel = false;
             shapePropertiesForm.FormBorderStyle = FormBorderStyle.None;
             shapePropertiesForm.Dock = DockStyle.Fill;
@@ -88,8 +112,9 @@ namespace Coursework
             panelProperties.Controls.Add(shapePropertiesForm);
             shapePropertiesForm.Show();
         }
-        public void createAddShapeForm()
+        private void createAddShapeForm()
         {
+            panelProperties.Controls.Clear();
             AddShapeForm addShapeForm = new AddShapeForm(this);
             addShapeForm.TopLevel = false;
             addShapeForm.FormBorderStyle = FormBorderStyle.None;

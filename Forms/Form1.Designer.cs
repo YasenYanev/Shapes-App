@@ -84,6 +84,7 @@ namespace Coursework
             editShapeBtn.TabIndex = 1;
             editShapeBtn.Text = "Edit Shape";
             editShapeBtn.UseVisualStyleBackColor = false;
+            editShapeBtn.Click += editShapeBtn_Click;
             // 
             // clearBtn
             // 
