@@ -10,7 +10,7 @@ namespace Coursework.Shapes
     public class Circle : Shape
     {
 
-        public int Radius { get; }
+        public int Radius { get; private set; }
 
         public Circle(int diameter, int x, int y, Color innerColor, Color borderColor) : base(diameter, diameter, x, y, innerColor, borderColor)
         {
@@ -74,6 +74,12 @@ namespace Coursework.Shapes
 
                 X += deltaX;
                 Y += deltaY;
+        }
+
+        public override void UpdatePropreties(params object[] parameters) {
+            BorderColor = (Color)parameters[0];
+            InnerColor = (Color)parameters[1];
+            Radius = (int)parameters[2];
         }
 
         public override bool IsMouseInside(int mouseX, int mouseY)

@@ -85,6 +85,13 @@ namespace Coursework.Shapes
             Y += deltaY;
         }
 
+        public override void UpdatePropreties(params object[] parameters)
+        {
+            BorderColor = (Color)parameters[0];
+            InnerColor = (Color)parameters[1];
+            SideLength = (int)parameters[2];
+        }
+
         public override bool IsMouseInside(int mouseX, int mouseY)
         {
             int d1 = (bottomLeft.X - top.X) * (mouseY - top.Y) - (bottomLeft.Y - top.Y) * (mouseX - top.X);

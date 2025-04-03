@@ -2,13 +2,14 @@ using Coursework.Shapes;
 using Coursework.Controls.Events;
 using System.Windows.Forms;
 using Coursework.Forms;
+using Coursework.Interfaces;
 
 namespace Coursework
 {
     public partial class Form1 : Form
     {
         public MouseHandler mouseHandler;
-        public List<Shape> shapesList = new List<Shape> { };
+        public List<IShape> shapesList = new List<IShape> { };
         public Shape? selectedShape = null;
         public ShapePropertiesForm shapePropertiesForm;
         public Form1()
@@ -101,7 +102,7 @@ namespace Coursework
             editShapePropertiesForm.Show();
         }
 
-        private void createPropretiesForm()
+        public void createPropretiesForm()
         {
             panelProperties.Controls.Clear();
             shapePropertiesForm = new ShapePropertiesForm(this);

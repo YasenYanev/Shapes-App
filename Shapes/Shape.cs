@@ -32,6 +32,7 @@ namespace Coursework.Shapes
         public abstract void OnPaint(object sender, PaintEventArgs e);
         public abstract void UpdateLocation(int XOnLastEvent, int YOnLastEvent, int XOnMouseMove, int YOnMouseMove,
             int canvasXLeft, int canvasXRight, int canvasYTop, int canvasYBottom);
+        public abstract void UpdatePropreties(params object[] parameters);
         public abstract bool IsMouseInside(int X, int Y);
     }
 }
