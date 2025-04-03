@@ -137,8 +137,8 @@ namespace Coursework.Forms
             // Update shape properties
             if (selectedShape is Triangle triangle) triangle.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text));
             else if (selectedShape is Circle circle) circle.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text));
-            else if (selectedShape is Square square) square.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtWidth.Text), int.Parse(txtHeight.Text));
-            else if (selectedShape is RectangleS rectangle) rectangle.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtWidth.Text), int.Parse(txtHeight.Text));
+            else if (selectedShape is Square square) square.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text), int.Parse(txtSpecificProperty.Text));
+            else ((RectangleS)selectedShape).UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtWidth.Text), int.Parse(txtHeight.Text));
 
             // Refresh the canvas
             mainForm.panelCanvas.Refresh();

@@ -1,0 +1,62 @@
+[33mcommit 6c9d017edda6efe7e6922f024f31319d87fbf283[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Yasen Yanev <124697579+YasenYanev@users.noreply.github.com>
+Date:   Thu Apr 3 22:07:31 2025 +0300
+
+    feat(edit form): eidt form completely working
+    
+    Add UpdatePropreties method for every shape.
+
+[33mcommit 6f01bd79b8c09e406c9b0eb988b95d81ee15a0ec[m
+Author: Yasen Yanev <124697579+YasenYanev@users.noreply.github.com>
+Date:   Fri Mar 21 20:48:56 2025 +0200
+
+    feat: add edit shape form
+
+[33mcommit b80d9e015e1d94141cbe880e5bef14122117edd7[m
+Author: Yasen Yanev <124697579+YasenYanev@users.noreply.github.com>
+Date:   Wed Mar 12 19:40:23 2025 +0200
+
+    feat: select shape after creation
+
+[33mcommit 2c592d8f13f2f6ffada3ef17f58d4ce420a656fa[m
+Author: Yasen Yanev <124697579+YasenYanev@users.noreply.github.com>
+Date:   Wed Mar 12 19:15:24 2025 +0200
+
+    feat(): add add shape and shape propreties Forms
+    
+    Add button and select elements event listeners. Can
+    now add, delete, move and clear shapes on screen.
+
+[33mcommit a072c460a32b227f05891105e4f8da04496d9005[m
+Merge: ca35fbc 4ef31ef
+Author: Yasen Yanev <124697579+YasenYanev@users.noreply.github.com>
+Date:   Wed Mar 12 19:13:26 2025 +0200
+
+    Merge branch 'main' of github.com:YasenYanev/Shapes-App
+
+[33mcommit ca35fbc7d70234388b99f15587b35dbf09eaa277[m
+Author: Yasen Yanev <124697579+YasenYanev@users.noreply.github.com>
+Date:   Wed Mar 12 19:09:46 2025 +0200
+
+    feat: add main form and README files
+    
+    Implement double-buffered rendering
+    for smoother shape rendering
+
+[33mcommit 4ef31ef3189e7834e0c3f75e6f62d6903b721a2d[m
+Author: Yasen Yanev <124697579+YasenYanev@users.noreply.github.com>
+Date:   Wed Mar 12 19:07:18 2025 +0200
+
+    feat: add main form and README files
+
+[33mcommit 926a8af54b96261941667b7be50d4b2bc88b06e9[m
+Author: Yasen Yanev <124697579+YasenYanev@users.noreply.github.com>
+Date:   Wed Mar 12 18:53:21 2025 +0200
+
+    feat: add MouseHandler and IMouseHandler for mouse event handling
+
+[33mcommit f773e78266ce82ae27ae83cca860521585e09cfa[m
+Author: Yasen Yanev <124697579+YasenYanev@users.noreply.github.com>
+Date:   Wed Mar 12 18:47:38 2025 +0200
+
+    feat(shapes): add IShape interface and shape implementations
