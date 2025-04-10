@@ -12,9 +12,9 @@ namespace Coursework.Shapes
 
         public int Radius { get; private set; }
 
-        public Circle(int diameter, int x, int y, Color innerColor, Color borderColor) : base(diameter, diameter, x, y, innerColor, borderColor)
+        public Circle(int radius, int x, int y, Color innerColor, Color borderColor) : base(radius * 2, radius * 2, x, y, innerColor, borderColor)
         {
-            Radius = diameter / 2;
+            Radius = radius;
         }
 
         public override int CalculateArea()
@@ -46,13 +46,13 @@ namespace Coursework.Shapes
                     e.Graphics.DrawRectangle(dottedPen, upperLeftX, upperLeftY, Width, Height);
 
                     Brush whiteBrush = Brushes.White;
- 
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
 
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX + Width - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX + Width - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
- 
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
 
@@ -65,18 +65,19 @@ namespace Coursework.Shapes
         public override void UpdateLocation(int XOnLastEvent, int YOnLastEvent, int XOnMouseMove, int YOnMouseMove,
             int canvasXLeft, int canvasXRight, int canvasYTop, int canvasYBottom)
         {
-                int deltaX = XOnMouseMove - XOnLastEvent;
-                int deltaY = YOnMouseMove - YOnLastEvent;
+            int deltaX = XOnMouseMove - XOnLastEvent;
+            int deltaY = YOnMouseMove - YOnLastEvent;
 
-                if (X + deltaX - Width / 2 < canvasXLeft || X + deltaX + Width / 2 > canvasXRight ||
-                    Y + deltaY - Height / 2 < canvasYTop || Y + deltaY + Height / 2 > canvasYBottom)
-                    return; // Don't move if out of bounds
+            if (X + deltaX - Width / 2 < canvasXLeft || X + deltaX + Width / 2 > canvasXRight ||
+                Y + deltaY - Height / 2 < canvasYTop || Y + deltaY + Height / 2 > canvasYBottom)
+                return; // Don't move if out of bounds
 
-                X += deltaX;
-                Y += deltaY;
+            X += deltaX;
+            Y += deltaY;
         }
 
-        public override void UpdatePropreties(params object[] parameters) {
+        public override void UpdatePropreties(params object[] parameters)
+        {
             BorderColor = (Color)parameters[0];
             InnerColor = (Color)parameters[1];
             Radius = (int)parameters[2];
@@ -85,6 +86,7 @@ namespace Coursework.Shapes
         public override bool IsMouseInside(int mouseX, int mouseY)
         {
             return ((mouseX - X) * (mouseX - X) + (mouseY - Y) * (mouseY - Y) <= Radius * Radius);
+
         }
     }
 }

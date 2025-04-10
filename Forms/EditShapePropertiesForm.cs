@@ -65,10 +65,10 @@ namespace Coursework.Forms
                 this.Controls.Add(txtSpecificProperty);
                 verticalOffset += labelSpacing;
             }
-            else if (selectedShape is Square square)
+            else if (selectedShape.Width == selectedShape.Height)
             {
                 this.Controls.Add(new Label { Text = "Side Length:", Location = new Point(centerX, verticalOffset), AutoSize = true });
-                txtSpecificProperty = new TextBox { Text = square.Width.ToString(), Location = new Point(centerX + 80 + horizontalSpacing, verticalOffset), Width = 100 };
+                txtSpecificProperty = new TextBox { Text = selectedShape.Width.ToString(), Location = new Point(centerX + 80 + horizontalSpacing, verticalOffset), Width = 100 };
                 this.Controls.Add(txtSpecificProperty);
                 verticalOffset += labelSpacing;
             }
@@ -135,10 +135,10 @@ namespace Coursework.Forms
         private void BtnSave_Click(object sender, EventArgs e)
         {
             // Update shape properties
-            if (selectedShape is Triangle triangle) triangle.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text));
-            else if (selectedShape is Circle circle) circle.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text));
-            else if (selectedShape is Square square) square.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text), int.Parse(txtSpecificProperty.Text));
-            else ((RectangleS)selectedShape).UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtWidth.Text), int.Parse(txtHeight.Text));
+            if (selectedShape is Triangle) selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text));
+            else if (selectedShape is Circle) selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text));
+            else if (txtSpecificProperty != null) selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text), int.Parse(txtSpecificProperty.Text));
+            else selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtWidth.Text), int.Parse(txtHeight.Text));
 
             // Refresh the canvas
             mainForm.panelCanvas.Refresh();

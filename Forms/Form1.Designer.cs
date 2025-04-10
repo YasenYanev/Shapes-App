@@ -110,6 +110,7 @@ namespace Coursework
             saveBtn.TabIndex = 4;
             saveBtn.Text = "Save";
             saveBtn.UseVisualStyleBackColor = false;
+            saveBtn.Click += saveBtn_Click;
             // 
             // loadBtn
             // 
@@ -122,6 +123,7 @@ namespace Coursework
             loadBtn.TabIndex = 5;
             loadBtn.Text = "Load";
             loadBtn.UseVisualStyleBackColor = false;
+            loadBtn.Click += loadBtn_Click;
             // 
             // panelCanvas
             // 

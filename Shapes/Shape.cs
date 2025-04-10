@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Coursework.Interfaces;
+using Newtonsoft.Json;
 
 namespace Coursework.Shapes
 {
@@ -15,7 +16,12 @@ namespace Coursework.Shapes
         public int Height { get; protected set; }
         public Color InnerColor { get; protected set; }
         public Color BorderColor { get; protected set; }
+        // Real value for logic in your program
+        [JsonIgnore]
         public bool IsSelected { get; set; } = false;
+        // This always returns false when serializing
+        [JsonProperty("IsSelected")]
+        public bool IsSelectedSerialized => false;
 
         public Shape(int width, int height, int x, int y, Color innerColor, Color borderColor)
         {

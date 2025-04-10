@@ -221,7 +221,7 @@ namespace Coursework.Forms
                     shape = new Circle(int.Parse(Controls.OfType<TextBox>().First().Text), 125, 125, selectedInnerColor, selectedBorderColor);
                     break;
                 case "Square":
-                    shape = new Square(int.Parse(Controls.OfType<TextBox>().First().Text), 125, 125, selectedInnerColor, selectedBorderColor);
+                    shape = new RectangleS(int.Parse(Controls.OfType<TextBox>().First().Text), int.Parse(Controls.OfType<TextBox>().First().Text), 125, 125, selectedInnerColor, selectedBorderColor);
                     break;
                 case "Rectangle":
                     shape = new RectangleS(int.Parse(Controls.OfType<TextBox>().First().Text), int.Parse(Controls.OfType<TextBox>().Last().Text), 125, 125, selectedInnerColor, selectedBorderColor);
