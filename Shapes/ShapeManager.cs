@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Coursework.Interaction.Events;
 using Coursework.Interfaces;
 
 namespace Coursework.Shapes

@@ -2,7 +2,6 @@ using System.Windows.Forms;
 using Coursework.Forms;
 using System;
 using Coursework.Shapes;
-using Coursework.Interaction.Events;
 using Coursework.Interaction.Handlers;
 
 namespace Coursework

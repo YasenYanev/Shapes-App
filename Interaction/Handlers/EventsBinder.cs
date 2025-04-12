@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Coursework.Interaction.Handlers;
 using Coursework.Forms;
 using Coursework.Interfaces;
 using Coursework.Shapes;
 using Newtonsoft.Json;
 
 
-namespace Coursework.Interaction.Events
+namespace Coursework.Interaction.Handlers
 {
     public class EventsBinder
     {
