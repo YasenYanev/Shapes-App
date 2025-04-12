@@ -1,6 +1,6 @@
 namespace Coursework.Interfaces
 {
-    public interface IMouseHandler
+    public interface IShapeInteractionHandler
     {
         void OnMouseClick(object sender, MouseEventArgs e);
         void OnMouseDown(object sender, MouseEventArgs e);

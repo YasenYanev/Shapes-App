@@ -210,31 +210,14 @@ namespace Coursework.Forms
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            string shapeType = comboBox1.SelectedItem.ToString();
-            Shape shape = null;
-            switch (shapeType)
-            {
-                case "Triangle":
-                    shape = new Triangle(int.Parse(Controls.OfType<TextBox>().First().Text), 125, 125, selectedInnerColor, selectedBorderColor);
-                    break;
-                case "Circle":
-                    shape = new Circle(int.Parse(Controls.OfType<TextBox>().First().Text), 125, 125, selectedInnerColor, selectedBorderColor);
-                    break;
-                case "Square":
-                    shape = new RectangleS(int.Parse(Controls.OfType<TextBox>().First().Text), int.Parse(Controls.OfType<TextBox>().First().Text), 125, 125, selectedInnerColor, selectedBorderColor);
-                    break;
-                case "Rectangle":
-                    shape = new RectangleS(int.Parse(Controls.OfType<TextBox>().First().Text), int.Parse(Controls.OfType<TextBox>().Last().Text), 125, 125, selectedInnerColor, selectedBorderColor);
-                    break;
-            }
-            if (shape != null)
-            {
-                mainform.panelCanvas.Paint += shape.OnPaint;
-                mainform.shapesList.Add(shape);
+            var shapeType = comboBox1.SelectedItem.ToString();
+            var textBoxValues = new List<int>();
 
-                mainform.OnTryShapeSelect(shape);
-                mainform.panelCanvas.Refresh();
-            }
+            foreach (var textBox in Controls.OfType<TextBox>())
+                if (int.TryParse(textBox.Text, out int value))
+                    textBoxValues.Add(value);
+
+            mainform.shapeManager.AddShape(shapeType, selectedInnerColor, selectedBorderColor, textBoxValues);
         }
     }
 }

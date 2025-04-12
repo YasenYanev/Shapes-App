@@ -58,7 +58,6 @@ namespace Coursework
             deleteShapeBtn.TabIndex = 2;
             deleteShapeBtn.Text = "Delete Shape";
             deleteShapeBtn.UseVisualStyleBackColor = false;
-            deleteShapeBtn.Click += deleteShapeBtn_Click;
             // 
             // addShapeBtn
             // 
@@ -71,7 +70,6 @@ namespace Coursework
             addShapeBtn.TabIndex = 0;
             addShapeBtn.Text = "Add Shape";
             addShapeBtn.UseVisualStyleBackColor = false;
-            addShapeBtn.Click += AddShapeBtn_Click;
             // 
             // editShapeBtn
             // 
@@ -84,7 +82,6 @@ namespace Coursework
             editShapeBtn.TabIndex = 1;
             editShapeBtn.Text = "Edit Shape";
             editShapeBtn.UseVisualStyleBackColor = false;
-            editShapeBtn.Click += editShapeBtn_Click;
             // 
             // clearBtn
             // 
@@ -97,7 +94,6 @@ namespace Coursework
             clearBtn.TabIndex = 3;
             clearBtn.Text = "Clear";
             clearBtn.UseVisualStyleBackColor = false;
-            clearBtn.Click += clearBtn_Click;
             // 
             // saveBtn
             // 
@@ -110,7 +106,6 @@ namespace Coursework
             saveBtn.TabIndex = 4;
             saveBtn.Text = "Save";
             saveBtn.UseVisualStyleBackColor = false;
-            saveBtn.Click += saveBtn_Click;
             // 
             // loadBtn
             // 
@@ -123,7 +118,6 @@ namespace Coursework
             loadBtn.TabIndex = 5;
             loadBtn.Text = "Load";
             loadBtn.UseVisualStyleBackColor = false;
-            loadBtn.Click += loadBtn_Click;
             // 
             // panelCanvas
             // 
@@ -160,13 +154,13 @@ namespace Coursework
         #endregion
 
         private Panel panelToolbar;
-        private Panel panelProperties;
-        private Button addShapeBtn;
-        private Button editShapeBtn;
-        private Button deleteShapeBtn;
-        private Button clearBtn;
-        private Button saveBtn;
-        private Button loadBtn;
+        public Panel panelProperties;
+        public Button addShapeBtn;
+        public Button editShapeBtn;
+        public Button deleteShapeBtn;
+        public Button clearBtn;
+        public Button saveBtn;
+        public Button loadBtn;
         public DoubleBufferedPanel panelCanvas; // Use DoubleBufferedPanel
     }
 }

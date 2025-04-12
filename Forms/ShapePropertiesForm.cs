@@ -5,13 +5,13 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using Coursework.Shapes;
-
+using Coursework.Interfaces;
 namespace Coursework.Forms
 {
     public partial class ShapePropertiesForm : Form
     {
         private Form1 mainForm;
-        private Shape selectedShape;
+        private IShape selectedShape;
         private Label lblX;
         private Label lblY;
         private Label lblWidth;
@@ -24,7 +24,7 @@ namespace Coursework.Forms
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            this.selectedShape = this.mainForm.selectedShape;
+            this.selectedShape = this.mainForm.shapeManager.selectedShape;
             DisplayShapeProperties();
         }
 

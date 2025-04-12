@@ -8,7 +8,7 @@ namespace Coursework.Interfaces
         public int Height { get; }
         public Color InnerColor { get; }
         public Color BorderColor { get; }
-        public bool IsSelected { get; }
+        public bool IsSelected { get; set; }
 
         int CalculateArea();
         int CalculatePerimeter();

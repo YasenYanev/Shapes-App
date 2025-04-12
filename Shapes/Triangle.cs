@@ -90,6 +90,8 @@ namespace Coursework.Shapes
             BorderColor = (Color)parameters[0];
             InnerColor = (Color)parameters[1];
             SideLength = (int)parameters[2];
+            Width = SideLength;
+            Height = (int)(Math.Sqrt(3) / 2 * SideLength);
         }
 
         public override bool IsMouseInside(int mouseX, int mouseY)

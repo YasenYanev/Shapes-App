@@ -3,13 +3,14 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Coursework.Shapes;
+using Coursework.Interfaces;
 
 namespace Coursework.Forms
 {
     public partial class EditShapePropertiesForm : Form
     {
-        private Form1 mainForm;
-        private Shape selectedShape;
+        private Form1 _mainForm;
+        private IShape selectedShape;
         private TextBox txtSpecificProperty;
         private Button btnSave;
         private Label colorLabel;
@@ -24,8 +25,8 @@ namespace Coursework.Forms
         public EditShapePropertiesForm(Form1 mainForm)
         {
             InitializeComponent();
-            this.mainForm = mainForm;
-            this.selectedShape = this.mainForm.selectedShape;
+            this._mainForm = mainForm;
+            this.selectedShape = _mainForm.shapeManager.selectedShape;
             this.selectedInnerColor = selectedShape.InnerColor;
             this.selectedBorderColor = selectedShape.BorderColor;
             DisplayShapeProperties();
@@ -134,15 +135,15 @@ namespace Coursework.Forms
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            // Update shape properties
-            if (selectedShape is Triangle) selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text));
-            else if (selectedShape is Circle) selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text));
-            else if (txtSpecificProperty != null) selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtSpecificProperty.Text), int.Parse(txtSpecificProperty.Text));
-            else selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, int.Parse(txtWidth.Text), int.Parse(txtHeight.Text));
+            var textBoxValues = new List<int>();
 
-            // Refresh the canvas
-            mainForm.panelCanvas.Refresh();
-            mainForm.createPropretiesForm();
+            foreach (var textBox in Controls.OfType<TextBox>())
+                if (int.TryParse(textBox.Text, out int value))
+                    textBoxValues.Add(value);
+
+            _mainForm.shapeManager.EditShape(selectedInnerColor, selectedBorderColor, textBoxValues);
+            _mainForm.panelCanvas.Refresh();
+            _mainForm.createPropretiesForm();
             this.Close();
         }
     }
