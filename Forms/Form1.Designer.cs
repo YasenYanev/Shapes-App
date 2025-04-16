@@ -26,6 +26,7 @@ namespace Coursework
             clearBtn = new Button();
             saveBtn = new Button();
             loadBtn = new Button();
+            shapesInfoBtn = new Button();
             panelCanvas = new DoubleBufferedPanel();
             panelProperties = new Panel();
             panelToolbar.SuspendLayout();
@@ -41,6 +42,7 @@ namespace Coursework
             panelToolbar.Controls.Add(clearBtn);
             panelToolbar.Controls.Add(saveBtn);
             panelToolbar.Controls.Add(loadBtn);
+            panelToolbar.Controls.Add(shapesInfoBtn);
             panelToolbar.Location = new Point(0, 0);
             panelToolbar.Margin = new Padding(0);
             panelToolbar.Name = "panelToolbar";
@@ -119,6 +121,18 @@ namespace Coursework
             loadBtn.Text = "Load";
             loadBtn.UseVisualStyleBackColor = false;
             // 
+            // listOfShapes
+            // 
+            shapesInfoBtn.BackColor = Color.Gray;
+            shapesInfoBtn.Cursor = Cursors.Hand;
+            shapesInfoBtn.FlatStyle = FlatStyle.Flat;
+            shapesInfoBtn.Location = new Point(670, 15);
+            shapesInfoBtn.Name = "shapesInfo";
+            shapesInfoBtn.Size = new Size(100, 30);
+            shapesInfoBtn.TabIndex = 5;
+            shapesInfoBtn.Text = "Shapes Info";
+            shapesInfoBtn.UseVisualStyleBackColor = false;
+            // 
             // panelCanvas
             // 
             panelCanvas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -161,6 +175,7 @@ namespace Coursework
         public Button clearBtn;
         public Button saveBtn;
         public Button loadBtn;
+        public Button shapesInfoBtn;
         public DoubleBufferedPanel panelCanvas; // Use DoubleBufferedPanel
     }
 }

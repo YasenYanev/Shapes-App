@@ -36,6 +36,7 @@ namespace Coursework.Interaction.Handlers
             _mainForm.clearBtn.Click += ClearShapesBtn;
             _mainForm.saveBtn.Click += SaveShapesBtn;
             _mainForm.loadBtn.Click += ImportShapesBtn;
+            _mainForm.shapesInfoBtn.Click += ShapesInfo;
         }
         private void ShowAddFormBtn(object sender, EventArgs e)
         {
@@ -117,11 +118,14 @@ namespace Coursework.Interaction.Handlers
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     jsonString = File.ReadAllText(openFileDialog.FileName);
-                    _shapeManager.shapesList = JsonConvert.DeserializeObject<List<IShape>>(jsonString,
+                    var deserializedShapes = JsonConvert.DeserializeObject<List<IShape>>(jsonString,
                         new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.All
                         });
+
+                    // Cast the deserialized shapes to the Shape type
+                    _shapeManager.shapesList = deserializedShapes.Cast<Shape>().ToList();
                 }
             }
 
@@ -130,6 +134,14 @@ namespace Coursework.Interaction.Handlers
 
             _mainForm.panelProperties.Controls.Clear();
             _mainForm.panelCanvas.Refresh();
+        }
+
+        private void ShapesInfo(object sender, EventArgs e)
+        {
+            _mainForm.panelProperties.Controls.Clear();
+            _mainForm.panelCanvas.Refresh();
+
+            _mainForm.createShapesInfoForm();
         }
     }
 }

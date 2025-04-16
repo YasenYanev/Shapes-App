@@ -9,14 +9,14 @@ namespace Coursework.Shapes
 {
     public class ShapeManager
     {
-        public List<IShape> shapesList = new List<IShape> { };
-        public IShape? selectedShape = null;
+        public List<Shape> shapesList = new List<Shape> { };
+        public Shape? selectedShape = null;
         private Form1 _mainForm;
         public ShapeManager(Form1 form) {
             _mainForm = form;
         }
 
-        public void DeleteShape(IShape shape)
+        public void DeleteShape(Shape shape)
         {
             _mainForm.panelCanvas.Paint -= shape.OnPaint;
             shapesList.Remove(shape);

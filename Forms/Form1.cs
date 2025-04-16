@@ -10,7 +10,6 @@ namespace Coursework
     {
         public ShapeManager shapeManager;
         public ShapeInteractionHandler shapeInteractionHandler;
-        public ShapePropertiesForm shapePropertiesForm;
 
         public Form1()
         {
@@ -19,10 +18,21 @@ namespace Coursework
             shapeManager = new ShapeManager(this);
             shapeInteractionHandler = new ShapeInteractionHandler(this);
             new EventsBinder(this);
-
-            this.MinimumSize = new Size(850, 650);
+            this.MinimumSize = new Size(650, 650);
         }
-
+        public void createAddShapeForm()
+        {
+            panelProperties.Controls.Clear();
+            AddShapeForm addShapeForm = new AddShapeForm(this)
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill,
+                BackColor = panelProperties.BackColor
+            };
+            panelProperties.Controls.Add(addShapeForm);
+            addShapeForm.Show();
+        }
         public void createEditPopretiesForm()
         {
             panelProperties.Controls.Clear();
@@ -40,7 +50,7 @@ namespace Coursework
         public void createPropretiesForm()
         {
             panelProperties.Controls.Clear();
-            shapePropertiesForm = new ShapePropertiesForm(this)
+            ShapePropertiesForm shapePropertiesForm = new ShapePropertiesForm(this)
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None,
@@ -50,18 +60,20 @@ namespace Coursework
             panelProperties.Controls.Add(shapePropertiesForm);
             shapePropertiesForm.Show();
         }
-        public void createAddShapeForm()
+
+        public void createShapesInfoForm()
         {
             panelProperties.Controls.Clear();
-            AddShapeForm addShapeForm = new AddShapeForm(this)
+            ShapesInfoForm shapeListForm = new ShapesInfoForm(this)
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None,
                 Dock = DockStyle.Fill,
                 BackColor = panelProperties.BackColor
             };
-            panelProperties.Controls.Add(addShapeForm);
-            addShapeForm.Show();
+            panelProperties.Controls.Add(shapeListForm);
+            shapeListForm.Show();
         }
+
     }
 }
