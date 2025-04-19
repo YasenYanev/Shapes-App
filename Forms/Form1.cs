@@ -10,6 +10,11 @@ namespace Coursework
     {
         public ShapeManager shapeManager;
         public ShapeInteractionHandler shapeInteractionHandler;
+        public AddShapeForm? addShapeForm;
+        public ShapePropertiesForm? shapePropertiesForm;
+        public EditShapePropertiesForm? editShapeForm;
+        public ShapesInfoForm? shapesInfoForm;
+
 
         public Form1()
         {
@@ -50,7 +55,7 @@ namespace Coursework
         public void createPropretiesForm()
         {
             panelProperties.Controls.Clear();
-            ShapePropertiesForm shapePropertiesForm = new ShapePropertiesForm(this)
+            shapePropertiesForm = new ShapePropertiesForm(this)
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None,

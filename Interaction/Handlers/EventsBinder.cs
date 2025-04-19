@@ -138,8 +138,11 @@ namespace Coursework.Interaction.Handlers
 
         private void ShapesInfo(object sender, EventArgs e)
         {
-            _mainForm.panelProperties.Controls.Clear();
-            _mainForm.panelCanvas.Refresh();
+            if(_shapeManager.shapesList.Count() < 1)
+            {
+                MessageBox.Show("Add a shape");
+                return;
+            }
 
             _mainForm.createShapesInfoForm();
         }

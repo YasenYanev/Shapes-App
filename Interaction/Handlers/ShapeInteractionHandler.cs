@@ -43,7 +43,7 @@ namespace Coursework.Interaction.Handlers
                     shape.UpdateLocation(lastMousePosition.X, lastMousePosition.Y, e.X, e.Y,
                         0, _mainForm.panelCanvas.Width, 0, _mainForm.panelCanvas.Height);
                     _mainForm.Cursor = Cursors.SizeAll;
-                //    _mainForm.shapePropertiesForm.UpdateShapeProperties(shape.X, shape.Y); // Fix: update x and y based on shape center not mouse position
+                    _mainForm.shapePropertiesForm.UpdateShapeProperties(shape.X, shape.Y);
                     break;
                 }
                 else if (shape.IsMouseInside(e.X, e.Y)) _mainForm.Cursor = Cursors.Hand;

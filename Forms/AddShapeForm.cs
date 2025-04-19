@@ -217,7 +217,7 @@ namespace Coursework.Forms
                 if (int.TryParse(textBox.Text, out int value))
                     textBoxValues.Add(value);
 
-            mainform.shapeManager.AddShape(shapeType, selectedInnerColor, selectedBorderColor, textBoxValues);
+            mainform.shapeManager.AddShape(shapeType, textBoxValues, selectedInnerColor, selectedBorderColor);
         }
     }
 }
