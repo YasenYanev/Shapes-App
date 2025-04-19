@@ -41,7 +41,7 @@ namespace Coursework.Shapes
             _mainForm.shapeInteractionHandler.OnTryShapeSelect(shape);
             _mainForm.panelCanvas.Refresh();
         }
-        public void EditShape(Color selectedInnerColor, Color selectedBorderColor, List<int> props)
+        public void EditShape(List<int> props, Color selectedInnerColor, Color selectedBorderColor)
         {
             selectedShape.UpdatePropreties(new object[] { selectedBorderColor, selectedInnerColor, props });
         }

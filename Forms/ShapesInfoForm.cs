@@ -36,7 +36,7 @@ namespace Coursework.Forms
             {
                 AutoSize = true,
                 Font = new Font("Segoe UI", 10),
-                Text = $"Total Area of Shapes: {totalShapesArea}",
+                Text = $"Total Area Of All Shapes: {totalShapesArea}",
                 Dock = DockStyle.Top,
                 Padding = new Padding(10)
             };
@@ -45,7 +45,7 @@ namespace Coursework.Forms
             {
                 AutoSize = true,
                 Font = new Font("Segoe UI", 10),
-                Text = $"Shape with Highest Perimeter: {highestPerimeterShape.CalculatePerimeter()}",
+                Text = $"Highest Perimeter Of A Shape: {highestPerimeterShape.CalculatePerimeter()}",
                 Dock = DockStyle.Top,
                 Padding = new Padding(10)
             };

@@ -141,7 +141,7 @@ namespace Coursework.Forms
                 if (int.TryParse(textBox.Text, out int value))
                     textBoxValues.Add(value);
 
-            _mainForm.shapeManager.EditShape(selectedInnerColor, selectedBorderColor, textBoxValues);
+            _mainForm.shapeManager.EditShape(textBoxValues, selectedInnerColor, selectedBorderColor);
             _mainForm.panelCanvas.Refresh();
             _mainForm.createPropretiesForm();
             this.Close();
