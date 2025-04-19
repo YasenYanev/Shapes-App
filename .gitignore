@@ -1,3 +1,6 @@
-# Build results
-bin/
+# Build results  
+bin/  
 obj/
+
+# Visual Studio temporary files
+.vs/
