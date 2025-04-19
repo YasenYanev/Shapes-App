@@ -121,13 +121,13 @@ namespace Coursework
             loadBtn.Text = "Load";
             loadBtn.UseVisualStyleBackColor = false;
             // 
-            // listOfShapes
+            // shapesInfoBtn
             // 
             shapesInfoBtn.BackColor = Color.Gray;
             shapesInfoBtn.Cursor = Cursors.Hand;
             shapesInfoBtn.FlatStyle = FlatStyle.Flat;
             shapesInfoBtn.Location = new Point(670, 15);
-            shapesInfoBtn.Name = "shapesInfo";
+            shapesInfoBtn.Name = "shapesInfoBtn";
             shapesInfoBtn.Size = new Size(100, 30);
             shapesInfoBtn.TabIndex = 5;
             shapesInfoBtn.Text = "Shapes Info";
@@ -137,10 +137,10 @@ namespace Coursework
             // 
             panelCanvas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelCanvas.BackColor = Color.WhiteSmoke;
-            panelCanvas.Location = new Point(260, 60);
+            panelCanvas.Location = new Point(299, 60);
             panelCanvas.Margin = new Padding(0);
             panelCanvas.Name = "panelCanvas";
-            panelCanvas.Size = new Size(540, 540);
+            panelCanvas.Size = new Size(501, 540);
             panelCanvas.TabIndex = 0;
             // 
             // panelProperties
@@ -150,7 +150,7 @@ namespace Coursework
             panelProperties.Location = new Point(0, 60);
             panelProperties.Margin = new Padding(0);
             panelProperties.Name = "panelProperties";
-            panelProperties.Size = new Size(260, 540);
+            panelProperties.Size = new Size(299, 540);
             panelProperties.TabIndex = 1;
             // 
             // Form1

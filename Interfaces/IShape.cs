@@ -15,7 +15,7 @@ namespace Coursework.Interfaces
         void OnPaint(object sender, PaintEventArgs e);
         void UpdateLocation(int XOnLastEvent, int YOnLastEvent, int XOnMouseMove, int YOnMouseMove,
             int canvasXLeft, int canvasXRight, int canvasYTop, int canvasYBottom);
-        void UpdatePropreties(params object[] parameters);
+        void UpdatePropreties(object[] parameters);
         bool IsMouseInside(int X, int Y);
     }
 

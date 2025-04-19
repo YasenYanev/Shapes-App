@@ -9,7 +9,7 @@ namespace Coursework.Shapes
 {
     public class ShapeManager
     {
-        public readonly List<Shape> shapesList = new List<Shape> { };
+        public List<Shape> shapesList = new List<Shape> { };
         public Shape? selectedShape = null;
         private readonly ShapeFactory _shapeFactory = new ShapeFactory();
         private Form1 _mainForm;
@@ -21,7 +21,7 @@ namespace Coursework.Shapes
                 => new Circle(props.First(), 125, 125, innerColor, borderColor));
             _shapeFactory.AddShape("Square", (List<int> props, Color innerColor, Color borderColor)
                 => new RectangleS(props.First(), props.First(), 125, 125, innerColor, borderColor));
-            _shapeFactory.AddShape("RectangleS", (List<int> props, Color innerColor, Color borderColor)
+            _shapeFactory.AddShape("Rectangle", (List<int> props, Color innerColor, Color borderColor)
                 => new RectangleS(props.First(), props.Last(), 125, 125, innerColor, borderColor));
         }
 
@@ -43,10 +43,7 @@ namespace Coursework.Shapes
         }
         public void EditShape(Color selectedInnerColor, Color selectedBorderColor, List<int> props)
         {
-            if (selectedShape is Triangle) selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, props.First());
-            else if (selectedShape is Circle) selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, props.First());
-            else if (props.Count == 1) selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, props.First(), props.First());
-            else selectedShape.UpdatePropreties(selectedBorderColor, selectedInnerColor, props.First(), props.Last());
+            selectedShape.UpdatePropreties(new object[] { selectedBorderColor, selectedInnerColor, props });
         }
     }
 }
