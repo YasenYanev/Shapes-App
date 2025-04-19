@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Coursework.Shapes.Base;
 
-namespace Coursework.Shapes
+namespace Coursework.Shapes.Types
 {
-    public class RectangleS : Shape
+    public class Circle : Shape
     {
-        public RectangleS(int width, int height, int x, int y, Color innerColor, Color borderColor) : base(width, height, x, y, innerColor, borderColor)
+
+        public int Radius { get; private set; }
+
+        public Circle(int radius, int x, int y, Color innerColor, Color borderColor) : base(radius * 2, radius * 2, x, y, innerColor, borderColor)
         {
+            Radius = radius;
         }
 
         public override int CalculateArea()
         {
-            return Width * Height;
+            return (int)(Math.Pow(Radius, 2) * Math.PI);
         }
 
         public override int CalculatePerimeter()
         {
-            return 2 * (Width + Height);
+            return (int)(2 * Math.PI * Radius);
         }
 
         public override void OnPaint(object sender, PaintEventArgs e)
@@ -27,8 +32,8 @@ namespace Coursework.Shapes
             int upperLeftX = X - Width / 2;
             int upperLeftY = Y - Height / 2;
 
-            e.Graphics.DrawRectangle(new Pen(BorderColor, 4), upperLeftX, upperLeftY, Width, Height);
-            e.Graphics.FillRectangle(new SolidBrush(InnerColor), upperLeftX, upperLeftY, Width, Height);
+            e.Graphics.DrawEllipse(new Pen(BorderColor, 4), upperLeftX, upperLeftY, Width, Height);
+            e.Graphics.FillEllipse(new SolidBrush(InnerColor), upperLeftX, upperLeftY, Width, Height);
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             if (IsSelected)
@@ -38,21 +43,19 @@ namespace Coursework.Shapes
                     dottedPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
                     int handleSize = 6;
 
-                    // Draw the dotted border  
                     e.Graphics.DrawRectangle(dottedPen, upperLeftX, upperLeftY, Width, Height);
 
-                    // Draw squares at the corners with black border and white fill
                     Brush whiteBrush = Brushes.White;
-                    // Top-left corner  
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
-                    // Top-right corner  
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX + Width - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX + Width - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
-                    // Bottom-left corner  
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
-                    // Bottom-right corner  
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX + Width - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX + Width - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
                 }
@@ -60,35 +63,32 @@ namespace Coursework.Shapes
         }
 
         public override void UpdateLocation(int XOnLastEvent, int YOnLastEvent, int XOnMouseMove, int YOnMouseMove,
-           int canvasXLeft, int canvasXRight, int canvasYTop, int canvasYBottom)
+            int canvasXLeft, int canvasXRight, int canvasYTop, int canvasYBottom)
         {
-                int deltaX = XOnMouseMove - XOnLastEvent;
-                int deltaY = YOnMouseMove - YOnLastEvent;
+            int deltaX = XOnMouseMove - XOnLastEvent;
+            int deltaY = YOnMouseMove - YOnLastEvent;
 
-                if (X + deltaX - Width / 2 < canvasXLeft || X + deltaX + Width / 2 > canvasXRight ||
-                    Y + deltaY - Height / 2 < canvasYTop || Y + deltaY + Height / 2 > canvasYBottom)
-                    return; // Don't move if out of bounds
+            if (X + deltaX - Width / 2 < canvasXLeft || X + deltaX + Width / 2 > canvasXRight ||
+                Y + deltaY - Height / 2 < canvasYTop || Y + deltaY + Height / 2 > canvasYBottom)
+                return; // Don't move if out of bounds
 
-                X += deltaX;
-                Y += deltaY;
+            X += deltaX;
+            Y += deltaY;
         }
+
         public override void UpdatePropreties(object[] parameters)
         {
             BorderColor = (Color)parameters[0];
             InnerColor = (Color)parameters[1];
-            if(((List<int>)parameters[2]).Count == 2)
-            {
-                Width = (int)((List<int>)parameters[2])[0];
-                Height = (int)((List<int>)parameters[2])[1];
-            }else
-            {
-                Width = (int)((List<int>)parameters[2])[0];
-                Height = Width;
-            }
+            Radius = ((List<int>)parameters[2])[0];
+            Width = Radius * 2;
+            Height = Radius * 2;
         }
+
         public override bool IsMouseInside(int mouseX, int mouseY)
         {
-            return (mouseX >= X - Width / 2 && mouseX <= X + Width / 2) && (mouseY >= Y - Height / 2 && mouseY <= Y + Height / 2);
+            return (mouseX - X) * (mouseX - X) + (mouseY - Y) * (mouseY - Y) <= Radius * Radius;
+
         }
     }
 }

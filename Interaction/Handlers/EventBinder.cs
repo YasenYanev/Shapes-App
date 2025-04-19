@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Coursework.Forms;
 using Coursework.Interfaces;
-using Coursework.Shapes;
+using Coursework.Shapes.Base;
+using Coursework.Shapes.Management;
 using Newtonsoft.Json;
 
 
 namespace Coursework.Interaction.Handlers
 {
-    public class EventsBinder
+    public class EventBinder
     {
-        private Form1 _mainForm;
+        private MainForm _mainForm;
         private ShapeManager _shapeManager;
         private ShapeInteractionHandler _shapeInteractionHandler;
-        public EventsBinder(Form1 form) {
+        public EventBinder(MainForm form) {
             _mainForm = form;
             _shapeManager = form.shapeManager;
             _shapeInteractionHandler = form.shapeInteractionHandler;

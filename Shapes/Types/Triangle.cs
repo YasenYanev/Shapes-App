@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Coursework.Shapes.Base;
 
-namespace Coursework.Shapes
+namespace Coursework.Shapes.Types
 {
     public class Triangle : Shape
     {
@@ -21,7 +22,7 @@ namespace Coursework.Shapes
 
         public override int CalculateArea()
         {
-            return (int)((Math.Sqrt(3) / 4) * Math.Pow(SideLength, 2));
+            return (int)(Math.Sqrt(3) / 4 * Math.Pow(SideLength, 2));
         }
 
         public override int CalculatePerimeter()
@@ -89,7 +90,7 @@ namespace Coursework.Shapes
         {
             BorderColor = (Color)parameters[0];
             InnerColor = (Color)parameters[1];
-            SideLength = (int)((List<int>)parameters[2])[0];
+            SideLength = ((List<int>)parameters[2])[0];
             Width = SideLength;
             Height = (int)(Math.Sqrt(3) / 2 * SideLength);
         }
@@ -99,7 +100,7 @@ namespace Coursework.Shapes
             int d1 = (bottomLeft.X - top.X) * (mouseY - top.Y) - (bottomLeft.Y - top.Y) * (mouseX - top.X);
             int d2 = (bottomRight.X - bottomLeft.X) * (mouseY - bottomLeft.Y) - (bottomRight.Y - bottomLeft.Y) * (mouseX - bottomLeft.X);
             int d3 = (top.X - bottomRight.X) * (mouseY - bottomRight.Y) - (top.Y - bottomRight.Y) * (mouseX - bottomRight.X);
-            return (d1 > 0 && d2 > 0 && d3 > 0) || (d1 < 0 && d2 < 0 && d3 < 0);
+            return d1 > 0 && d2 > 0 && d3 > 0 || d1 < 0 && d2 < 0 && d3 < 0;
         }
     }
 }

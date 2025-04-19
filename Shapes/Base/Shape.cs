@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Coursework.Interfaces;
 using Newtonsoft.Json;
 
-namespace Coursework.Shapes
+namespace Coursework.Shapes.Base
 {
     public abstract class Shape : IShape
     {

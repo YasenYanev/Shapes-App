@@ -4,13 +4,13 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using Coursework.Shapes;
 using Coursework.Interfaces;
+using Coursework.Shapes.Types;
 namespace Coursework.Forms
 {
     public partial class ShapePropertiesForm : Form
     {
-        private Form1 mainForm;
+        private MainForm mainForm;
         private IShape selectedShape;
         private Label lblX;
         private Label lblY;
@@ -20,7 +20,7 @@ namespace Coursework.Forms
         private Label lblPerimeter;
         private Label lblSpecificProperty;
 
-        public ShapePropertiesForm(Form1 mainForm)
+        public ShapePropertiesForm(MainForm mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;

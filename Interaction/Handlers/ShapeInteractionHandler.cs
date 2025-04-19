@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Coursework.Interfaces;
-using Coursework.Shapes;
+using Coursework.Shapes.Base;
 
 namespace Coursework.Interaction.Handlers
 {
     public class ShapeInteractionHandler : IShapeInteractionHandler
     {
-        private Form1 _mainForm;
+        private MainForm _mainForm;
         private Point lastMousePosition = new Point(0, 0);
         public delegate void TryShapeSelectHandler(Shape shape);
         public event TryShapeSelectHandler TryShapeSelect;
 
-        public ShapeInteractionHandler(Form1 form)
+        public ShapeInteractionHandler(MainForm form)
         {
             _mainForm = form;
             TryShapeSelect += OnTryShapeSelect;

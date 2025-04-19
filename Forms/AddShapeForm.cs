@@ -8,7 +8,7 @@ namespace Coursework.Forms
     {
         private Color selectedInnerColor = Color.Transparent;
         private Color selectedBorderColor = Color.Transparent;
-        private Form1 mainform;
+        private MainForm mainform;
         private ComboBox comboBox1;
         private Label label1;
         private Button submitButton;
@@ -17,7 +17,7 @@ namespace Coursework.Forms
         private Label borderColorLabel;
         private Panel borderColorPanel;
 
-        public AddShapeForm(Form1 mainform)
+        public AddShapeForm(MainForm mainform)
         {
             this.mainform = mainform;
             InitializeComponent();

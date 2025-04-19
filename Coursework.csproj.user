@@ -13,7 +13,7 @@
     <Compile Update="Panels\DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Forms\Form1.cs">
+    <Compile Update="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

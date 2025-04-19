@@ -2,14 +2,14 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Coursework.Shapes;
 using Coursework.Interfaces;
+using Coursework.Shapes.Types;
 
 namespace Coursework.Forms
 {
     public partial class EditShapePropertiesForm : Form
     {
-        private Form1 _mainForm;
+        private MainForm _mainForm;
         private IShape selectedShape;
         private TextBox txtSpecificProperty;
         private Button btnSave;
@@ -22,7 +22,7 @@ namespace Coursework.Forms
         private TextBox txtWidth;
         private TextBox txtHeight;
 
-        public EditShapePropertiesForm(Form1 mainForm)
+        public EditShapePropertiesForm(MainForm mainForm)
         {
             InitializeComponent();
             this._mainForm = mainForm;

@@ -2,8 +2,8 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Coursework.Shapes;
 using Coursework.Interfaces;
+using Coursework.Shapes.Management;
 
 namespace Coursework.Forms
 {
@@ -11,7 +11,7 @@ namespace Coursework.Forms
     {
         private ShapeManager _shapeManager;
 
-        public ShapesInfoForm(Form1 mainForm)
+        public ShapesInfoForm(MainForm mainForm)
         {
             InitializeComponent();
 

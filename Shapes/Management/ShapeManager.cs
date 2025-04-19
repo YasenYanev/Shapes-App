@@ -4,24 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Coursework.Interfaces;
-
-namespace Coursework.Shapes
+using Coursework.Shapes.Base;
+using Coursework.Shapes.Types;
+namespace Coursework.Shapes.Management
 {
     public class ShapeManager
     {
         public List<Shape> shapesList = new List<Shape> { };
         public Shape? selectedShape = null;
         private readonly ShapeFactory _shapeFactory = new ShapeFactory();
-        private Form1 _mainForm;
-        public ShapeManager(Form1 form) {
+        private MainForm _mainForm;
+        public ShapeManager(MainForm form) {
             _mainForm = form;
-            _shapeFactory.AddShape("Triangle", (List<int> props, Color innerColor, Color borderColor) 
+            _shapeFactory.AddShape("Triangle", (props, innerColor, borderColor) 
                 => new Triangle(props.First(), 125, 125, innerColor, borderColor));
-            _shapeFactory.AddShape("Circle", (List<int> props, Color innerColor, Color borderColor)
+            _shapeFactory.AddShape("Circle", (props, innerColor, borderColor)
                 => new Circle(props.First(), 125, 125, innerColor, borderColor));
-            _shapeFactory.AddShape("Square", (List<int> props, Color innerColor, Color borderColor)
+            _shapeFactory.AddShape("Square", (props, innerColor, borderColor)
                 => new RectangleS(props.First(), props.First(), 125, 125, innerColor, borderColor));
-            _shapeFactory.AddShape("Rectangle", (List<int> props, Color innerColor, Color borderColor)
+            _shapeFactory.AddShape("Rectangle", (props, innerColor, borderColor)
                 => new RectangleS(props.First(), props.Last(), 125, 125, innerColor, borderColor));
         }
 

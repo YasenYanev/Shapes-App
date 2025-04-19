@@ -1,12 +1,12 @@
 using System.Windows.Forms;
 using Coursework.Forms;
 using System;
-using Coursework.Shapes;
 using Coursework.Interaction.Handlers;
+using Coursework.Shapes.Management;
 
 namespace Coursework
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         public ShapeManager shapeManager;
         public ShapeInteractionHandler shapeInteractionHandler;
@@ -16,13 +16,13 @@ namespace Coursework
         public ShapesInfoForm? shapesInfoForm;
 
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
             shapeManager = new ShapeManager(this);
             shapeInteractionHandler = new ShapeInteractionHandler(this);
-            new EventsBinder(this);
+            new EventBinder(this);
             this.MinimumSize = new Size(650, 650);
         }
         public void createAddShapeForm()
