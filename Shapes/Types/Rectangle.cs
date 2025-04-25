@@ -32,6 +32,8 @@ namespace Coursework.Shapes.Types
             e.Graphics.FillRectangle(new SolidBrush(InnerColor), upperLeftX, upperLeftY, Width, Height);
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
+
+            // Draw selected border
             if (IsSelected)
             {
                 using (Pen dottedPen = new Pen(Color.Black, 2))
@@ -39,21 +41,19 @@ namespace Coursework.Shapes.Types
                     dottedPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
                     int handleSize = 6;
 
-                    // Draw the dotted border  
                     e.Graphics.DrawRectangle(dottedPen, upperLeftX, upperLeftY, Width, Height);
 
-                    // Draw squares at the corners with black border and white fill
                     Brush whiteBrush = Brushes.White;
-                    // Top-left corner  
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
-                    // Top-right corner  
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX + Width - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX + Width - handleSize / 2, upperLeftY - handleSize / 2, handleSize, handleSize);
-                    // Bottom-left corner  
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
-                    // Bottom-right corner  
+
                     e.Graphics.FillRectangle(whiteBrush, upperLeftX + Width - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
                     e.Graphics.DrawRectangle(Pens.Black, upperLeftX + Width - handleSize / 2, upperLeftY + Height - handleSize / 2, handleSize, handleSize);
                 }
@@ -68,7 +68,7 @@ namespace Coursework.Shapes.Types
 
                 if (X + deltaX - Width / 2 < canvasXLeft || X + deltaX + Width / 2 > canvasXRight ||
                     Y + deltaY - Height / 2 < canvasYTop || Y + deltaY + Height / 2 > canvasYBottom)
-                    return; // Don't move if out of bounds
+                    return;
 
                 X += deltaX;
                 Y += deltaY;

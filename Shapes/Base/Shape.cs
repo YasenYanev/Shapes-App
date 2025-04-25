@@ -16,10 +16,8 @@ namespace Coursework.Shapes.Base
         public int Height { get; protected set; }
         public Color InnerColor { get; protected set; }
         public Color BorderColor { get; protected set; }
-        // Real value for logic in your program
         [JsonIgnore]
         public bool IsSelected { get; set; } = false;
-        // This always returns false when serializing
         [JsonProperty("IsSelected")]
         public bool IsSelectedSerialized => false;
 

@@ -36,6 +36,8 @@ namespace Coursework.Shapes.Types
             e.Graphics.FillEllipse(new SolidBrush(InnerColor), upperLeftX, upperLeftY, Width, Height);
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
+
+            // Draw selected border
             if (IsSelected)
             {
                 using (Pen dottedPen = new Pen(Color.Black, 2))
@@ -70,7 +72,7 @@ namespace Coursework.Shapes.Types
 
             if (X + deltaX - Width / 2 < canvasXLeft || X + deltaX + Width / 2 > canvasXRight ||
                 Y + deltaY - Height / 2 < canvasYTop || Y + deltaY + Height / 2 > canvasYBottom)
-                return; // Don't move if out of bounds
+                return;
 
             X += deltaX;
             Y += deltaY;

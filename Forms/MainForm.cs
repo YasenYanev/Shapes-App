@@ -23,7 +23,7 @@ namespace Coursework
             shapeManager = new ShapeManager(this);
             shapeInteractionHandler = new ShapeInteractionHandler(this);
             new EventBinder(this);
-            this.MinimumSize = new Size(650, 650);
+            MinimumSize = new Size(650, 650);
         }
         public void createAddShapeForm()
         {

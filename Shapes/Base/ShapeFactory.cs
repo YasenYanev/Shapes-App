@@ -10,7 +10,7 @@ namespace Coursework.Shapes.Base
     {
         private readonly Dictionary<string, Func<List<int>, Color, Color, Shape>> _shapesFactory 
             = new Dictionary<string, Func<List<int>, Color, Color, Shape>>();
-        public void AddShape(string shapeType, Func<List<int>, Color, Color, Shape> shapeFunc)
+        public void RegisterShape(string shapeType, Func<List<int>, Color, Color, Shape> shapeFunc)
         {
             _shapesFactory[shapeType] = shapeFunc;
         }

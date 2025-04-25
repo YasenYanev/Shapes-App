@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Coursework.Interfaces;
 using Coursework.Shapes.Base;
 using Coursework.Shapes.Types;
 namespace Coursework.Shapes.Management
@@ -16,13 +15,13 @@ namespace Coursework.Shapes.Management
         private MainForm _mainForm;
         public ShapeManager(MainForm form) {
             _mainForm = form;
-            _shapeFactory.AddShape("Triangle", (props, innerColor, borderColor) 
+            _shapeFactory.RegisterShape("Triangle", (props, innerColor, borderColor) 
                 => new Triangle(props.First(), 125, 125, innerColor, borderColor));
-            _shapeFactory.AddShape("Circle", (props, innerColor, borderColor)
+            _shapeFactory.RegisterShape("Circle", (props, innerColor, borderColor)
                 => new Circle(props.First(), 125, 125, innerColor, borderColor));
-            _shapeFactory.AddShape("Square", (props, innerColor, borderColor)
+            _shapeFactory.RegisterShape("Square", (props, innerColor, borderColor)
                 => new RectangleS(props.First(), props.First(), 125, 125, innerColor, borderColor));
-            _shapeFactory.AddShape("Rectangle", (props, innerColor, borderColor)
+            _shapeFactory.RegisterShape("Rectangle", (props, innerColor, borderColor)
                 => new RectangleS(props.First(), props.Last(), 125, 125, innerColor, borderColor));
         }
 
