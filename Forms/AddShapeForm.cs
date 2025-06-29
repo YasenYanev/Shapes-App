@@ -1,6 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Coursework.Shapes;
+using Coursework.Utilities;
 
 namespace Coursework.Forms
 {
@@ -8,7 +12,8 @@ namespace Coursework.Forms
     {
         private Color selectedInnerColor = Color.Transparent;
         private Color selectedBorderColor = Color.Transparent;
-        private MainForm mainform;
+        private MainForm _mainform;
+
         private ComboBox comboBox1;
         private Label label1;
         private Button submitButton;
@@ -17,80 +22,60 @@ namespace Coursework.Forms
         private Label borderColorLabel;
         private Panel borderColorPanel;
 
+        private int y;
+        private int spacing;
+        private int centerX;
+        private int inputX;
+
         public AddShapeForm(MainForm mainform)
         {
-            this.mainform = mainform;
+            _mainform = mainform;
             InitializeComponent();
         }
 
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // AddShapeForm
-            // 
-            this.ClientSize = new System.Drawing.Size(260, 540);
-            this.Name = "AddShapeForm";
-            this.Text = "Add Shape";
-            this.ResumeLayout(false);
+            SuspendLayout();
 
+            ClientSize = new Size(284, 540);
+            Name = "Add Shape Form";
+            Text = "Add Shape";
+            BackColor = Color.LightSteelBlue;
+
+            y = 30;
+            spacing = 36;
+            centerX = (ClientSize.Width - 200) / 2;
+            inputX = centerX + 90;
+
+            // Shape selector
+            label1 = UIHelper.CreateLabel("Choose Shape:", centerX, y);
             comboBox1 = new ComboBox
             {
-                Location = new Point(100, 43),
-                Size = new Size(140, 23)
+                Location = new Point(inputX, y - 3),
+                Size = new Size(100, 23)
             };
             comboBox1.Items.AddRange(new object[] { "Triangle", "Circle", "Square", "Rectangle" });
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
 
-            label1 = new Label
-            {
-                Location = new Point(10, 46),
-                Size = new Size(85, 15),
-                Text = "Choose Shape:"
-            };
+            y += spacing;
 
-            innerColorLabel = new Label
-            {
-                Location = new Point(10, 240),
-                AutoSize = true,
-                Text = "Choose Inner Color:",
-                Visible = false
-            };
-
-            innerColorPanel = new Panel
-            {
-                Location = new Point(150, 240),
-                Size = new Size(20, 20),
-                BackColor = Color.Transparent,
-                BorderStyle = BorderStyle.FixedSingle,
-                Visible = false,
-                Cursor = Cursors.Hand
-            };
+            // Color controls - initially invisible
+            innerColorLabel = UIHelper.CreateLabel("Choose Inner Color:", centerX, y, visable: false);
+            innerColorPanel = UIHelper.CreateColorPanel(inputX, y);
+            innerColorPanel.Visible = false;
             innerColorPanel.Click += innerColorPanel_Click;
+            y += spacing;
 
-            borderColorLabel = new Label
-            {
-                Location = new Point(10, 280),
-                AutoSize = true,
-                Text = "Choose Border Color:",
-                Visible = false
-            };
-
-            borderColorPanel = new Panel
-            {
-                Location = new Point(150, 280),
-                Size = new Size(20, 20),
-                BackColor = Color.Transparent,
-                BorderStyle = BorderStyle.FixedSingle,
-                Visible = false,
-                Cursor = Cursors.Hand
-            };
+            borderColorLabel = UIHelper.CreateLabel("Choose Border Color:", centerX, y, visable: false);
+            borderColorPanel = UIHelper.CreateColorPanel(inputX, y);
+            borderColorPanel.Visible = false;
             borderColorPanel.Click += borderColorPanel_Click;
+            y += spacing;
 
             submitButton = new Button
             {
-                Location = new Point(95, 320),
-                Size = new Size(75, 23),
+                Location = new Point(centerX + 50, y),
+                Size = new Size(100, 28),
                 Text = "Submit",
                 Visible = false
             };
@@ -106,42 +91,70 @@ namespace Coursework.Forms
                 borderColorPanel,
                 submitButton
             });
-            BackColor = Color.LightSteelBlue;
+
+            ResumeLayout(false);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ResetColors();
-            Controls.Clear();
-            Controls.AddRange(new Control[] { label1, comboBox1 });
-
-            string[] labels;
-            switch (comboBox1.SelectedItem.ToString())
+            // Remove previous textboxes and labels (except the selector and colors)
+            foreach (Control c in Controls.OfType<Label>().ToList())
             {
-                case "Triangle":
-                    labels = new[] { "Side Length" };
-                    break;
-                case "Circle":
-                    labels = new[] { "Radius" };
-                    break;
-                case "Square":
-                    labels = new[] { "Side Length" };
-                    break;
-                case "Rectangle":
-                    labels = new[] { "Width", "Height" };
-                    break;
-                default:
-                    labels = new string[] { };
-                    break;
+                if (c != label1 && c != innerColorLabel && c != borderColorLabel)
+                    Controls.Remove(c);
             }
 
-            AddShapeControls(labels);
+            foreach (Control c in Controls.OfType<TextBox>().ToList())
+            {
+                Controls.Remove(c);
+            }
 
-            int yOffset = 80 + labels.Length * 40;
-            SetControlLocations(yOffset);
+            ResetColors();
 
-            innerColorLabel.Visible = innerColorPanel.Visible = borderColorLabel.Visible = borderColorPanel.Visible = submitButton.Visible = false;
-            Controls.AddRange(new Control[] { innerColorLabel, innerColorPanel, borderColorLabel, borderColorPanel, submitButton });
+            y = spacing * 2;
+
+            string[] labels = comboBox1.SelectedItem.ToString() switch
+            {
+                "Triangle" => new[] { "Side Length" },
+                "Circle" => new[] { "Radius" },
+                "Square" => new[] { "Side Length" },
+                "Rectangle" => new[] { "Width", "Height" },
+                _ => new string[] { }
+            };
+
+            foreach (var labelText in labels)
+            {
+                var label = UIHelper.CreateLabel(labelText + ":", centerX, y);
+                var textBox = UIHelper.CreateTextbox("", inputX, y);
+                textBox.TextChanged += TextBox_TextChanged;
+                Controls.Add(label);
+                Controls.Add(textBox);
+                y += spacing;
+            }
+
+            // Reposition and add color selectors and submit button
+            innerColorLabel.Location = new Point(centerX, y);
+            innerColorPanel.Location = new Point(inputX + 60, y);
+            y += spacing;
+
+            borderColorLabel.Location = new Point(centerX, y);
+            borderColorPanel.Location = new Point(inputX + 60, y);
+            y += spacing;
+
+            submitButton.Location = new Point(centerX + 50, y + spacing);
+
+            Controls.AddRange(new Control[]
+            {
+                innerColorLabel,
+                innerColorPanel,
+                borderColorLabel,
+                borderColorPanel,
+                submitButton
+            });
+
+            innerColorLabel.Visible = innerColorPanel.Visible =
+            borderColorLabel.Visible = borderColorPanel.Visible =
+            submitButton.Visible = false;
         }
 
         private void ResetColors()
@@ -152,72 +165,57 @@ namespace Coursework.Forms
             borderColorPanel.BackColor = Color.Transparent;
         }
 
-        private void AddShapeControls(string[] labels)
-        {
-            int yOffset = 80;
-            foreach (var label in labels)
-            {
-                Controls.Add(new Label { Text = label + ":", Location = new Point(10, yOffset + 5), AutoSize = true });
-                var txtBox = new TextBox { Location = new Point(100, yOffset), Size = new Size(140, 23), Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point), BackColor = Color.White, ForeColor = Color.Black };
-                txtBox.TextChanged += TextBox_TextChanged;
-                Controls.Add(txtBox);
-                yOffset += 40;
-            }
-        }
-
-        private void SetControlLocations(int yOffset)
-        {
-            innerColorLabel.Location = new Point(10, yOffset);
-            innerColorPanel.Location = new Point(150, yOffset);
-            borderColorLabel.Location = new Point(10, yOffset + 40);
-            borderColorPanel.Location = new Point(150, yOffset + 40);
-            submitButton.Location = new Point(95, yOffset + 80);
-        }
-
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            bool allFieldsFilled = Controls.OfType<TextBox>().All(txtBox => !string.IsNullOrWhiteSpace(txtBox.Text));
-            innerColorLabel.Visible = innerColorPanel.Visible = allFieldsFilled;
-            submitButton.Visible = allFieldsFilled && selectedInnerColor != Color.Transparent && selectedBorderColor != Color.Transparent;
+            bool allFilled = Controls.OfType<TextBox>().All(txt => !string.IsNullOrWhiteSpace(txt.Text));
+
+            innerColorLabel.Visible = innerColorPanel.Visible = allFilled;
+
+            // Button only visible if all fields and colors are set
+            submitButton.Visible = allFilled && selectedInnerColor != Color.Transparent && selectedBorderColor != Color.Transparent;
         }
 
         private void innerColorPanel_Click(object sender, EventArgs e)
         {
-            using (ColorDialog colorDialog = new ColorDialog())
+            using var colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                if (colorDialog.ShowDialog() == DialogResult.OK)
-                {
-                    selectedInnerColor = colorDialog.Color;
-                    innerColorPanel.BackColor = selectedInnerColor;
-                    borderColorLabel.Visible = borderColorPanel.Visible = true;
-                    submitButton.Visible = selectedInnerColor != Color.Transparent && selectedBorderColor != Color.Transparent;
-                }
+                selectedInnerColor = colorDialog.Color;
+                innerColorPanel.BackColor = selectedInnerColor;
+                borderColorLabel.Visible = borderColorPanel.Visible = true;
+
+                // Enable button if both colors are selected
+                submitButton.Visible = Controls.OfType<TextBox>().All(txt => !string.IsNullOrWhiteSpace(txt.Text)) &&
+                                       selectedBorderColor != Color.Transparent;
             }
         }
 
         private void borderColorPanel_Click(object sender, EventArgs e)
         {
-            using (ColorDialog colorDialog = new ColorDialog())
+            using var colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                if (colorDialog.ShowDialog() == DialogResult.OK)
-                {
-                    selectedBorderColor = colorDialog.Color;
-                    borderColorPanel.BackColor = selectedBorderColor;
-                    submitButton.Visible = selectedInnerColor != Color.Transparent && selectedBorderColor != Color.Transparent;
-                }
+                selectedBorderColor = colorDialog.Color;
+                borderColorPanel.BackColor = selectedBorderColor;
+
+                // Enable button if both colors are selected
+                submitButton.Visible = Controls.OfType<TextBox>().All(txt => !string.IsNullOrWhiteSpace(txt.Text)) &&
+                                       selectedInnerColor != Color.Transparent;
             }
         }
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            var shapeType = comboBox1.SelectedItem.ToString();
-            var textBoxValues = new List<int>();
+            string shapeType = comboBox1.SelectedItem.ToString();
+            var textBoxValues = Controls.OfType<TextBox>()
+                .Select(txt => int.TryParse(txt.Text, out int val) ? val : (int?)null)
+                .Where(val => val.HasValue)
+                .Select(val => val.Value)
+                .ToList();
 
-            foreach (var textBox in Controls.OfType<TextBox>())
-                if (int.TryParse(textBox.Text, out int value))
-                    textBoxValues.Add(value);
-
-            mainform.shapeManager.AddShape(shapeType, textBoxValues, selectedInnerColor, selectedBorderColor);
+            _mainform.operationFactory.GetOperationByName("Add").Execute(shapeType, textBoxValues, selectedInnerColor, selectedBorderColor);
+            _mainform.panelCanvas.Refresh();
+            Close();
         }
     }
 }

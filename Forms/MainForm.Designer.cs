@@ -35,7 +35,7 @@ namespace Coursework
             // panelToolbar
             // 
             panelToolbar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panelToolbar.BackColor = Color.LightGray;
+            panelToolbar.BackColor = Color.FromArgb(221, 235, 157);
             panelToolbar.Controls.Add(deleteShapeBtn);
             panelToolbar.Controls.Add(addShapeBtn);
             panelToolbar.Controls.Add(editShapeBtn);
@@ -51,9 +51,10 @@ namespace Coursework
             // 
             // deleteShapeBtn
             // 
-            deleteShapeBtn.BackColor = Color.Gray;
+            deleteShapeBtn.BackColor = Color.FromArgb(255, 253, 246);
             deleteShapeBtn.Cursor = Cursors.Hand;
             deleteShapeBtn.FlatStyle = FlatStyle.Flat;
+            deleteShapeBtn.ForeColor = Color.Green;
             deleteShapeBtn.Location = new Point(230, 15);
             deleteShapeBtn.Name = "deleteShapeBtn";
             deleteShapeBtn.Size = new Size(100, 30);
@@ -63,9 +64,10 @@ namespace Coursework
             // 
             // addShapeBtn
             // 
-            addShapeBtn.BackColor = Color.Gray;
+            addShapeBtn.BackColor = Color.FromArgb(255, 253, 246);
             addShapeBtn.Cursor = Cursors.Hand;
             addShapeBtn.FlatStyle = FlatStyle.Flat;
+            addShapeBtn.ForeColor = Color.Green;
             addShapeBtn.Location = new Point(10, 15);
             addShapeBtn.Name = "addShapeBtn";
             addShapeBtn.Size = new Size(100, 30);
@@ -75,9 +77,10 @@ namespace Coursework
             // 
             // editShapeBtn
             // 
-            editShapeBtn.BackColor = Color.Gray;
+            editShapeBtn.BackColor = Color.FromArgb(255, 253, 246);
             editShapeBtn.Cursor = Cursors.Hand;
             editShapeBtn.FlatStyle = FlatStyle.Flat;
+            editShapeBtn.ForeColor = Color.Green;
             editShapeBtn.Location = new Point(120, 15);
             editShapeBtn.Name = "editShapeBtn";
             editShapeBtn.Size = new Size(100, 30);
@@ -87,9 +90,10 @@ namespace Coursework
             // 
             // clearBtn
             // 
-            clearBtn.BackColor = Color.Gray;
+            clearBtn.BackColor = Color.FromArgb(255, 253, 246);
             clearBtn.Cursor = Cursors.Hand;
             clearBtn.FlatStyle = FlatStyle.Flat;
+            clearBtn.ForeColor = Color.Green;
             clearBtn.Location = new Point(340, 15);
             clearBtn.Name = "clearBtn";
             clearBtn.Size = new Size(100, 30);
@@ -99,9 +103,10 @@ namespace Coursework
             // 
             // saveBtn
             // 
-            saveBtn.BackColor = Color.Gray;
+            saveBtn.BackColor = Color.FromArgb(255, 253, 246);
             saveBtn.Cursor = Cursors.Hand;
             saveBtn.FlatStyle = FlatStyle.Flat;
+            saveBtn.ForeColor = Color.Green;
             saveBtn.Location = new Point(450, 15);
             saveBtn.Name = "saveBtn";
             saveBtn.Size = new Size(100, 30);
@@ -111,9 +116,10 @@ namespace Coursework
             // 
             // loadBtn
             // 
-            loadBtn.BackColor = Color.Gray;
+            loadBtn.BackColor = Color.FromArgb(255, 253, 246);
             loadBtn.Cursor = Cursors.Hand;
             loadBtn.FlatStyle = FlatStyle.Flat;
+            loadBtn.ForeColor = Color.Green;
             loadBtn.Location = new Point(560, 15);
             loadBtn.Name = "loadBtn";
             loadBtn.Size = new Size(100, 30);
@@ -123,9 +129,10 @@ namespace Coursework
             // 
             // shapesInfoBtn
             // 
-            shapesInfoBtn.BackColor = Color.Gray;
+            shapesInfoBtn.BackColor = Color.FromArgb(255, 253, 246);
             shapesInfoBtn.Cursor = Cursors.Hand;
             shapesInfoBtn.FlatStyle = FlatStyle.Flat;
+            shapesInfoBtn.ForeColor = Color.Green;
             shapesInfoBtn.Location = new Point(670, 15);
             shapesInfoBtn.Name = "shapesInfoBtn";
             shapesInfoBtn.Size = new Size(100, 30);
@@ -136,7 +143,7 @@ namespace Coursework
             // panelCanvas
             // 
             panelCanvas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panelCanvas.BackColor = Color.WhiteSmoke;
+            panelCanvas.BackColor = Color.FromArgb(255, 253, 246);
             panelCanvas.Location = new Point(299, 60);
             panelCanvas.Margin = new Padding(0);
             panelCanvas.Name = "panelCanvas";
@@ -146,20 +153,21 @@ namespace Coursework
             // panelProperties
             // 
             panelProperties.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panelProperties.BackColor = Color.LightSteelBlue;
+            panelProperties.BackColor = Color.FromArgb(160, 200, 120);
             panelProperties.Location = new Point(0, 60);
             panelProperties.Margin = new Padding(0);
             panelProperties.Name = "panelProperties";
             panelProperties.Size = new Size(299, 540);
             panelProperties.TabIndex = 1;
             // 
-            // Form1
+            // MainForm
             // 
-            ClientSize = new Size(800, 600);
+            ClientSize = new Size(800, 611);
             Controls.Add(panelCanvas);
             Controls.Add(panelProperties);
             Controls.Add(panelToolbar);
-            Name = "Form1";
+            MinimumSize = new Size(650, 650);
+            Name = "MainForm";
             Text = "Shape Editor";
             panelToolbar.ResumeLayout(false);
             ResumeLayout(false);

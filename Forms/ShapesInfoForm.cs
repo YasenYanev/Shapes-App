@@ -3,88 +3,77 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Coursework.Interfaces;
-using Coursework.Shapes.Management;
+using Coursework.Operations.Base;
+using Coursework.Utilities;
 
 namespace Coursework.Forms
 {
     public partial class ShapesInfoForm : Form
     {
-        private ShapeManager _shapeManager;
+        private MainForm _mainForm;
+
+        private Label lblTotalArea;
+        private Label lblHighestPerimeter;
+        private Label lblBrightestInnerColor;
+        private Label lblBrightestBorderColor;
 
         public ShapesInfoForm(MainForm mainForm)
         {
+            _mainForm = mainForm;
             InitializeComponent();
-
-            this._shapeManager = mainForm.shapeManager;
-
-            var totalShapesArea = (from shape in _shapeManager.shapesList
-                                   select shape.CalculateArea()).Sum();
-
-            var highestPerimeterShape = (from shape in _shapeManager.shapesList
-                                         orderby shape.CalculatePerimeter() descending
-                                         select shape).First();
-
-            var brightestInnerColorShape = _shapeManager.shapesList
-                .OrderByDescending(shape => 0.299 * shape.InnerColor.R + 0.587 * shape.InnerColor.G + 0.114 * shape.InnerColor.B)
-                .First();
-
-            var brightestBorderColorShape = _shapeManager.shapesList
-                .OrderByDescending(shape => 0.299 * shape.BorderColor.R + 0.587 * shape.BorderColor.G + 0.114 * shape.BorderColor.B)
-                .First();
-
-            var totalAreaLabel = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10),
-                Text = $"Total Area Of All Shapes: {totalShapesArea}",
-                Dock = DockStyle.Top,
-                Padding = new Padding(10)
-            };
-
-            var highestPerimeterLabel = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10),
-                Text = $"Highest Perimeter Of A Shape: {highestPerimeterShape.CalculatePerimeter()}",
-                Dock = DockStyle.Top,
-                Padding = new Padding(10)
-            };
-
-            var brightestInnerColorLabel = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10),
-                Text = $"Shape With Brithest Inner Color:\n {brightestInnerColorShape.GetType().Name}",
-                Dock = DockStyle.Top,
-                Padding = new Padding(10)
-            };
-
-            var brightestBorderColorLabel = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10),
-                Text = $"Shape With Brithest Border Color:\n {brightestBorderColorShape.GetType().Name}",
-                Dock = DockStyle.Top,
-                Padding = new Padding(10)
-            };
-
-            this.Controls.Add(brightestBorderColorLabel);
-            this.Controls.Add(brightestInnerColorLabel);
-            this.Controls.Add(highestPerimeterLabel);
-            this.Controls.Add(totalAreaLabel);
+            DisplayShapeStatistics();
         }
 
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            //  
-            // ShapesInfoForm  
-            //  
-            this.ClientSize = new System.Drawing.Size(400, 300);
+            this.ClientSize = new Size(400, 300);
             this.Name = "ShapesInfoForm";
             this.Text = "Shapes Information";
-            this.StartPosition = FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
+        }
+
+        private void DisplayShapeStatistics()
+        {
+            int verticalOffset = 30;
+            int labelSpacing = 40;
+            int centerX = 20;
+
+            var totalShapesArea = _mainForm.shapesList.Sum(shape => shape.CalculateArea());
+
+            var highestPerimeterShape = _mainForm.shapesList
+                .OrderByDescending(shape => shape.CalculatePerimeter())
+                .FirstOrDefault();
+
+            var brightestInnerColorShape = _mainForm.shapesList
+                .OrderByDescending(shape => 0.299 * shape.InnerColor.R + 0.587 * shape.InnerColor.G + 0.114 * shape.InnerColor.B)
+                .FirstOrDefault();
+
+            var brightestBorderColorShape = _mainForm.shapesList
+                .OrderByDescending(shape => 0.299 * shape.BorderColor.R + 0.587 * shape.BorderColor.G + 0.114 * shape.BorderColor.B)
+                .FirstOrDefault();
+
+            lblTotalArea = UIHelper.CreateLabel($"Total Area Of All Shapes: {totalShapesArea}", centerX, verticalOffset);
+            verticalOffset += labelSpacing;
+
+            lblHighestPerimeter = UIHelper.CreateLabel(
+                $"Highest Perimeter Of A Shape: {highestPerimeterShape?.CalculatePerimeter()}", centerX, verticalOffset);
+            verticalOffset += labelSpacing;
+
+            lblBrightestInnerColor = UIHelper.CreateLabel(
+                $"Shape With Brightest Inner Color:\n{brightestInnerColorShape?.GetType().Name}", centerX, verticalOffset);
+            verticalOffset += labelSpacing;
+
+            lblBrightestBorderColor = UIHelper.CreateLabel(
+                $"Shape With Brightest Border Color:\n{brightestBorderColorShape?.GetType().Name}", centerX, verticalOffset);
+
+            Controls.AddRange(new Control[]
+            {
+                lblTotalArea,
+                lblHighestPerimeter,
+                lblBrightestInnerColor,
+                lblBrightestBorderColor
+            });
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Coursework.Interfaces;
 using Coursework.Shapes.Types;
+using Coursework.Utilities;
 
 namespace Coursework.Forms
 {
@@ -11,140 +12,155 @@ namespace Coursework.Forms
     {
         private MainForm _mainForm;
         private IShape selectedShape;
+
         private TextBox txtSpecificProperty;
+        private TextBox txtWidth;
+        private TextBox txtHeight;
         private Button btnSave;
-        private Label colorLabel;
+
+        private Label innerColorLabel;
         private Panel innerColorPanel;
         private Label borderColorLabel;
         private Panel borderColorPanel;
+
         private Color selectedInnerColor;
         private Color selectedBorderColor;
-        private TextBox txtWidth;
-        private TextBox txtHeight;
+
+        private int y;
+        private int spacing;
+        private int centerX;
+        private int inputX;
 
         public EditShapePropertiesForm(MainForm mainForm)
         {
+            _mainForm = mainForm;
+            selectedShape = _mainForm.selectedShape;
+            selectedInnerColor = selectedShape.InnerColor;
+            selectedBorderColor = selectedShape.BorderColor;
+
+
+            y = 30;
+            spacing = 36;
+            centerX = (ClientSize.Width - 200) / 2;
+            inputX = centerX + 90;
+
+
             InitializeComponent();
-            this._mainForm = mainForm;
-            this.selectedShape = _mainForm.shapeManager.selectedShape;
-            this.selectedInnerColor = selectedShape.InnerColor;
-            this.selectedBorderColor = selectedShape.BorderColor;
             DisplayShapeProperties();
         }
 
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // EditShapePropertiesForm
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "Edit Shape Properties";
-            this.Text = "Edit Shape Properties";
-            this.ResumeLayout(false);
+            SuspendLayout();
+            ClientSize = new Size(284, 261);
+            Name = "Edit Shape Properties";
+            Text = "Edit Shape Properties";
+            ResumeLayout(false);
         }
 
         private void DisplayShapeProperties()
         {
-            int verticalOffset = 30;
-            int labelSpacing = 36; // Set to match other forms
-            int centerX = (this.ClientSize.Width - 200) / 2;
-            int horizontalSpacing = 10; // Shortened horizontal spacing
 
-            // Specific property
             if (selectedShape is Triangle triangle)
             {
-                this.Controls.Add(new Label { Text = "Side Length:", Location = new Point(centerX, verticalOffset), AutoSize = true });
-                txtSpecificProperty = new TextBox { Text = triangle.SideLength.ToString(), Location = new Point(centerX + 80 + horizontalSpacing, verticalOffset), Width = 100 };
-                this.Controls.Add(txtSpecificProperty);
-                verticalOffset += labelSpacing;
+                var label = UIHelper.CreateLabel("Side Length:", centerX, y);
+                txtWidth = UIHelper.CreateTextbox(triangle.SideLength.ToString(), inputX, y);
+                Controls.Add(label);
+                Controls.Add(txtWidth);
+                y += spacing;
+                txtHeight = null;
             }
             else if (selectedShape is Circle circle)
             {
-                this.Controls.Add(new Label { Text = "Radius:", Location = new Point(centerX, verticalOffset), AutoSize = true });
-                txtSpecificProperty = new TextBox { Text = circle.Radius.ToString(), Location = new Point(centerX + 80 + horizontalSpacing, verticalOffset), Width = 100 };
-                this.Controls.Add(txtSpecificProperty);
-                verticalOffset += labelSpacing;
+                var label = UIHelper.CreateLabel("Radius:", centerX, y);
+                txtWidth = UIHelper.CreateTextbox(circle.Radius.ToString(), inputX, y);
+                Controls.Add(label);
+                Controls.Add(txtWidth);
+                y += spacing;
+                txtHeight = null;
             }
             else if (selectedShape.Width == selectedShape.Height)
             {
-                this.Controls.Add(new Label { Text = "Side Length:", Location = new Point(centerX, verticalOffset), AutoSize = true });
-                txtSpecificProperty = new TextBox { Text = selectedShape.Width.ToString(), Location = new Point(centerX + 80 + horizontalSpacing, verticalOffset), Width = 100 };
-                this.Controls.Add(txtSpecificProperty);
-                verticalOffset += labelSpacing;
+                var label = UIHelper.CreateLabel("Side Length:", centerX, y);
+                txtWidth = UIHelper.CreateTextbox(selectedShape.Width.ToString(), inputX, y);
+                Controls.Add(label);
+                Controls.Add(txtWidth);
+                y += spacing;
+                txtHeight = null;
             }
             else
             {
-                // Width
-                this.Controls.Add(new Label { Text = "Width:", Location = new Point(centerX, verticalOffset), AutoSize = true });
-                txtWidth = new TextBox { Text = selectedShape.Width.ToString(), Location = new Point(centerX + 80 + horizontalSpacing, verticalOffset), Width = 100 };
-                this.Controls.Add(txtWidth);
-                verticalOffset += labelSpacing;
+                var labelW = UIHelper.CreateLabel("Width:", centerX, y);
+                txtWidth = UIHelper.CreateTextbox(selectedShape.Width.ToString(), inputX, y);
+                Controls.Add(labelW);
+                Controls.Add(txtWidth);
+                y += spacing;
 
-                // Height
-                this.Controls.Add(new Label { Text = "Height:", Location = new Point(centerX, verticalOffset), AutoSize = true });
-                txtHeight = new TextBox { Text = selectedShape.Height.ToString(), Location = new Point(centerX + 80 + horizontalSpacing, verticalOffset), Width = 100 };
-                this.Controls.Add(txtHeight);
-                verticalOffset += labelSpacing;
+                var labelH = UIHelper.CreateLabel("Height:", centerX, y);
+                txtHeight = UIHelper.CreateTextbox(selectedShape.Height.ToString(), inputX, y);
+                Controls.Add(labelH);
+                Controls.Add(txtHeight);
+                y += spacing;
             }
 
-            // Color selection
-            colorLabel = new Label { Text = "Choose Inner Color:", Location = new Point(centerX, verticalOffset), AutoSize = true };
-            innerColorPanel = new Panel { Location = new Point(centerX + 150, verticalOffset), Size = new Size(20, 20), BackColor = selectedInnerColor, BorderStyle = BorderStyle.FixedSingle, Cursor = Cursors.Hand };
-            innerColorPanel.Click += InnerColorPanel_Click;
-            this.Controls.Add(colorLabel);
-            this.Controls.Add(innerColorPanel);
-            verticalOffset += labelSpacing;
+            innerColorLabel = UIHelper.CreateLabel("Choose Inner Color:", centerX, y);
+            innerColorPanel = UIHelper.CreateColorPanelFromColors(new Point(centerX + 150, y), selectedInnerColor, InnerColorPanel_Click);
+            y += spacing;
 
-            borderColorLabel = new Label { Text = "Choose Border Color:", Location = new Point(centerX, verticalOffset), AutoSize = true };
-            borderColorPanel = new Panel { Location = new Point(centerX + 150, verticalOffset), Size = new Size(20, 20), BackColor = selectedBorderColor, BorderStyle = BorderStyle.FixedSingle, Cursor = Cursors.Hand };
-            borderColorPanel.Click += BorderColorPanel_Click;
-            this.Controls.Add(borderColorLabel);
-            this.Controls.Add(borderColorPanel);
-            verticalOffset += labelSpacing;
+            borderColorLabel = UIHelper.CreateLabel("Choose Border Color:", centerX, y);
+            borderColorPanel = UIHelper.CreateColorPanelFromColors(new Point(centerX + 150, y), selectedBorderColor, BorderColorPanel_Click);
+            y += spacing;
 
-            // Save button
-            btnSave = new Button { Text = "Save", Location = new Point(centerX + 50, verticalOffset + labelSpacing), Width = 100 };
+            btnSave = new Button
+            {
+                Text = "Save",
+                Location = new Point(centerX + 50, y + spacing),
+                Width = 100
+            };
             btnSave.Click += BtnSave_Click;
-            this.Controls.Add(btnSave);
+
+            Controls.AddRange(new Control[]
+            {
+                innerColorLabel,
+                innerColorPanel,
+                borderColorLabel,
+                borderColorPanel,
+                btnSave
+            });
         }
 
         private void InnerColorPanel_Click(object sender, EventArgs e)
         {
-            using (ColorDialog colorDialog = new ColorDialog())
+            using var colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                if (colorDialog.ShowDialog() == DialogResult.OK)
-                {
-                    selectedInnerColor = colorDialog.Color;
-                    innerColorPanel.BackColor = selectedInnerColor;
-                }
+                selectedInnerColor = colorDialog.Color;
+                innerColorPanel.BackColor = selectedInnerColor;
             }
         }
 
         private void BorderColorPanel_Click(object sender, EventArgs e)
         {
-            using (ColorDialog colorDialog = new ColorDialog())
+            using var colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                if (colorDialog.ShowDialog() == DialogResult.OK)
-                {
-                    selectedBorderColor = colorDialog.Color;
-                    borderColorPanel.BackColor = selectedBorderColor;
-                }
+                selectedBorderColor = colorDialog.Color;
+                borderColorPanel.BackColor = selectedBorderColor;
             }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            var textBoxValues = new List<int>();
+            var values = Controls.OfType<TextBox>()
+                                 .Select(txt => int.TryParse(txt.Text, out int val) ? val : (int?)null)
+                                 .Where(val => val.HasValue)
+                                 .Select(val => val.Value)
+                                 .ToList();
 
-            foreach (var textBox in Controls.OfType<TextBox>())
-                if (int.TryParse(textBox.Text, out int value))
-                    textBoxValues.Add(value);
-
-            _mainForm.shapeManager.EditShape(textBoxValues, selectedInnerColor, selectedBorderColor);
+            _mainForm.operationFactory.GetOperationByName("Edit").Execute(values, selectedInnerColor, selectedBorderColor);
             _mainForm.panelCanvas.Refresh();
-            _mainForm.createPropretiesForm();
-            this.Close();
+            _mainForm.formFactory.CreateForm("Properties Form");
+            Close();
         }
     }
 }

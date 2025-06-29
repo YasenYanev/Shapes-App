@@ -78,11 +78,11 @@ namespace Coursework.Shapes.Types
             Y += deltaY;
         }
 
-        public override void UpdatePropreties(object[] parameters)
+        public override void UpdatePropreties(params object[] args)
         {
-            BorderColor = (Color)parameters[0];
-            InnerColor = (Color)parameters[1];
-            Radius = ((List<int>)parameters[2])[0];
+            BorderColor = (Color)args[0];
+            InnerColor = (Color)args[1];
+            Radius = ((List<int>)args[2])[0];
             Width = Radius * 2;
             Height = Radius * 2;
         }

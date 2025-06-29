@@ -8,15 +8,14 @@ namespace Coursework.Interfaces
         public int Height { get; }
         public Color InnerColor { get; }
         public Color BorderColor { get; }
-        public bool IsSelected { get; set; }
+        public bool IsSelected { get; }
 
         int CalculateArea();
         int CalculatePerimeter();
         void OnPaint(object sender, PaintEventArgs e);
         void UpdateLocation(int XOnLastEvent, int YOnLastEvent, int XOnMouseMove, int YOnMouseMove,
             int canvasXLeft, int canvasXRight, int canvasYTop, int canvasYBottom);
-        void UpdatePropreties(object[] parameters);
+        void UpdatePropreties(params object[] args);
         bool IsMouseInside(int X, int Y);
     }
-
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Coursework.Shapes.Base
 {
-    class ShapeFactory
+    public class ShapeFactory
     {
         private readonly Dictionary<string, Func<List<int>, Color, Color, Shape>> _shapesFactory 
             = new Dictionary<string, Func<List<int>, Color, Color, Shape>>();
@@ -19,6 +19,5 @@ namespace Coursework.Shapes.Base
             if (_shapesFactory.ContainsKey(shapeType)) return _shapesFactory[shapeType](props, innerColor, borderColor);
             else throw new Exception($"Type of {shapeType} does not exist");
         }
-
     }
 }

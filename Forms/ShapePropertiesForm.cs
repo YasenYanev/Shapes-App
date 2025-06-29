@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
+using System.Windows.Forms;
 using Coursework.Interfaces;
 using Coursework.Shapes.Types;
+using Coursework.Utilities;
+
 namespace Coursework.Forms
 {
     public partial class ShapePropertiesForm : Form
     {
-        private MainForm mainForm;
+        private MainForm _mainForm;
         private IShape selectedShape;
+
         private Label lblX;
         private Label lblY;
         private Label lblWidth;
@@ -23,18 +24,15 @@ namespace Coursework.Forms
         public ShapePropertiesForm(MainForm mainForm)
         {
             InitializeComponent();
-            this.mainForm = mainForm;
-            this.selectedShape = this.mainForm.shapeManager.selectedShape;
+            _mainForm = mainForm;
+            this.selectedShape = _mainForm.selectedShape;
             DisplayShapeProperties();
         }
 
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // ShapePropertiesForm
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new Size(284, 261);
             this.Name = "ShapePropertiesForm";
             this.Text = "Shape Properties";
             this.ResumeLayout(false);
@@ -42,84 +40,54 @@ namespace Coursework.Forms
 
         private void DisplayShapeProperties()
         {
+            if (selectedShape == null)
+            {
+                MessageBox.Show("No shape selected.");
+                return;
+            }
+
             int verticalOffset = 30;
             int labelSpacing = 36;
-            int centerX = (this.Width - 200) / 2;
+            int centerX = (this.ClientSize.Width - 200) / 2;
 
-            lblX = new Label
-            {
-                Text = "X: " + selectedShape.X,
-                Location = new Point(centerX, verticalOffset),
-                AutoSize = true
-            };
-            lblY = new Label
-            {
-                Text = "Y: " + selectedShape.Y,
-                Location = new Point(centerX, verticalOffset + labelSpacing),
-                AutoSize = true
-            };
+            lblX = UIHelper.CreateLabel($"X: {selectedShape.X}", centerX, verticalOffset);
+            verticalOffset += labelSpacing;
+
+            lblY = UIHelper.CreateLabel($"Y: {selectedShape.Y}", centerX, verticalOffset);
             verticalOffset += labelSpacing;
 
             if (selectedShape is Triangle triangle)
             {
-                lblSpecificProperty = new Label
-                {
-                    Text = "Side Length: " + triangle.SideLength,
-                    Location = new Point(centerX, verticalOffset + labelSpacing),
-                    AutoSize = true
-                };
-                this.Controls.Add(lblSpecificProperty);
+                lblSpecificProperty = UIHelper.CreateLabel($"Side Length: {triangle.SideLength}", centerX, verticalOffset);
                 verticalOffset += labelSpacing;
             }
             else if (selectedShape is Circle circle)
             {
-                lblSpecificProperty = new Label
-                {
-                    Text = "Radius: " + circle.Radius,
-                    Location = new Point(centerX, verticalOffset + labelSpacing),
-                    AutoSize = true
-                };
-                this.Controls.Add(lblSpecificProperty);
+                lblSpecificProperty = UIHelper.CreateLabel($"Radius: {circle.Radius}", centerX, verticalOffset);
                 verticalOffset += labelSpacing;
             }
 
-            lblWidth = new Label
-            {
-                Text = "Width: " + selectedShape.Width,
-                Location = new Point(centerX, verticalOffset + labelSpacing),
-                AutoSize = true
-            };
-            lblHeight = new Label
-            {
-                Text = "Height: " + selectedShape.Height,
-                Location = new Point(centerX, verticalOffset + 2 * labelSpacing),
-                AutoSize = true
-            };
-            lblPerimeter = new Label
-            {
-                Text = "Perimeter: " + selectedShape.CalculatePerimeter(),
-                Location = new Point(centerX, verticalOffset + 3 * labelSpacing),
-                AutoSize = true
-            };
-            lblArea = new Label
-            {
-                Text = "Area: " + selectedShape.CalculateArea(),
-                Location = new Point(centerX, verticalOffset + 4 * labelSpacing),
-                AutoSize = true
-            };
+            lblWidth = UIHelper.CreateLabel($"Width: {selectedShape.Width}", centerX, verticalOffset);
+            verticalOffset += labelSpacing;
 
-            this.Controls.Add(lblX);
-            this.Controls.Add(lblY);
-            this.Controls.Add(lblWidth);
-            this.Controls.Add(lblHeight);
-            this.Controls.Add(lblPerimeter);
-            this.Controls.Add(lblArea);
+            lblHeight = UIHelper.CreateLabel($"Height: {selectedShape.Height}", centerX, verticalOffset);
+            verticalOffset += labelSpacing;
+
+            lblPerimeter = UIHelper.CreateLabel($"Perimeter: {selectedShape.CalculatePerimeter()}", centerX, verticalOffset);
+            verticalOffset += labelSpacing;
+
+            lblArea = UIHelper.CreateLabel($"Area: {selectedShape.CalculateArea()}", centerX, verticalOffset);
+
+            var controlsToAdd = new System.Collections.Generic.List<Control> { lblX, lblY, lblWidth, lblHeight, lblPerimeter, lblArea };
+            if (lblSpecificProperty != null) controlsToAdd.Add(lblSpecificProperty);
+
+            Controls.AddRange(controlsToAdd.ToArray());
         }
 
-        public void UpdateShapeProperties(int x, int y)
+        public void UpdateShapePositionOnForm(int x, int y)
         {
-            lblX.Text = "X: " + x;
-            lblY.Text = "Y: " + y;
+            lblX.Text = $"X: {x}";
+            lblY.Text = $"Y: {y}";
         }
     }
 }
